@@ -266,19 +266,6 @@ All emails are bilingual FR/EN based on the document language.
 
 ---
 
-## Installation
-
-1. Upload files to the server following the structure described above.  
-2. Run `composer install` inside `interne/vendor/`.  
-3. Update all absolute paths in each file (marked `⚠️ Must be updated during deployment`).  
-4. Set the admin password (`$ADMIN_PASSWORD` variable in each interface).  
-5. Replace the logo (`assets/logo.*`) and signature (`assets/signature.png`).  
-6. Configure the sender email address in `mailer.php` and `quote-generator-save.php`.  
-7. Check write permissions on archiving directories (web server user).  
-8. Test the full workflow: quote → signature → invoice → settlement.
-
----
-
 ## Archiving & Data
 
 All data is stored as flat files. No database is required.
