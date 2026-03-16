@@ -109,7 +109,7 @@ billing-system-fr/
 └── docs/
     ├── GUIDE_UTILISATEUR.md      → Guide utilisateur
     ├── OVERVIEW_FR.md            → Vue d’ensemble du projet et de son fonctionnement
-    └── README_FR.md              → Documentation d’installation et d’utilisation (version client)
+    └── README_FR.md              → Documentation d’utilisation (version client)
 ```
 
 
