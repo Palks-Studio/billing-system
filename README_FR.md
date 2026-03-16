@@ -83,6 +83,7 @@ billing-system-fr/
 │   ├── export-invoices.php       → Export ZIP des factures archivées
 │   ├── export-recettes.php       → Export CSV du journal des recettes
 │   │
+│   ├── config.php                → Configuration centrale de l’émetteur et des coordonnées bancaires
 │   ├── lookup.php                → Recherche et auto-remplissage des informations client
 │   ├── pdf-proxy.php             → Accès sécurisé aux PDF via token
 │   ├── .htaccess                 → Règles de sécurité et configuration Apache
@@ -92,7 +93,8 @@ billing-system-fr/
 ├── templates/                    → Modèles HTML utilisés pour le rendu des documents
 │   └── invoice-template.php      → Template de rendu du document (PDF ou aperçu)
 │
-├── config.php                    → Configuration centrale de l’émetteur et des coordonnées bancaires
+├── build_facturx_xml.php         → Génération du XML Factur-X
+├── inject_facturx.py             → Injection du XML Factur-X dans le PDF
 ├── mailer.php                    → Script interne d’envoi d’emails avec pièces jointes
 ├── engine.php                    → Moteur principal : logique de génération, calculs et archivage
 ├── LICENCE.md                    → Licence du projet
@@ -104,12 +106,13 @@ billing-system-fr/
 │   ├── invoices/                 → Archivage des factures à régler
 │   ├── invoices_state/           → Factures acquittées pré-générées (en attente de paiement)
 │   ├── invoices_paid/            → Factures acquittées archivées
+│   ├── tmp_facturx/              → Fichiers temporaires Factur-X
 │   └── revenues/                 → Journal des recettes (CSV)
 │
 └── docs/
     ├── GUIDE_UTILISATEUR.md      → Guide utilisateur
     ├── OVERVIEW_FR.md            → Vue d’ensemble du projet et de son fonctionnement
-    └── README_FR.md              → Documentation d’utilisation (version client)
+    └── README_FR.md              → Documentation d’installation et d’utilisation (version client)
 ```
 
 
