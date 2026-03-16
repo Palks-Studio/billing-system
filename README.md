@@ -83,6 +83,7 @@ billing-system-en/
 │   ├── export-invoices.php       → ZIP export of archived invoices
 │   ├── export-recettes.php       → CSV export of the revenue journal
 │   │
+│   ├── config.php                → Central configuration for issuer and bank details
 │   ├── lookup.php                → Client information lookup and auto-fill
 │   ├── pdf-proxy.php             → Secure PDF access via token
 │   ├── .htaccess                 → Apache security and configuration rules
@@ -92,7 +93,6 @@ billing-system-en/
 ├── templates/                    → HTML templates used to render documents
 │   └── invoice-template.php      → Document rendering template (PDF or preview)
 │ 
-├── config.php                    → Central configuration for issuer and bank details
 ├── mailer.php                    → Internal email sending script with attachments
 ├── engine.php                    → Main engine: document generation, calculations and archiving logic
 ├── LICENSE.md                    → Project license
@@ -109,7 +109,7 @@ billing-system-en/
 └── docs/
     ├── USER_GUIDE.md             → User guide
     ├── OVERVIEW.md               → Project overview and general system description
-    └── README.md                 → Usage documentation (client version)
+    └── README.md                 → Installation and usage documentation (client version)
 ```
 
 
