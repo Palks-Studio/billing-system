@@ -109,7 +109,7 @@ billing-system-en/
 └── docs/
     ├── USER_GUIDE.md             → User guide
     ├── OVERVIEW.md               → Project overview and general system description
-    └── README.md                 → Installation and usage documentation (client version)
+    └── README.md                 → Usage documentation (client version)
 ```
 
 
