@@ -36,6 +36,8 @@ Billing System est une suite de trois outils de facturation reliés entre eux, a
 
 Le système est conçu pour être déployé directement chez le client, sur un hébergement Apache standard avec PHP 8.x et Composer. Il ne nécessite ni base de données, ni service tiers, ni abonnement.
 
+[![Facturation sans SaaS](https://img.shields.io/badge/Facturation%20sans%20SaaS-0095b1?style=flat)](https://palks-studio.com/fr/facturation-sans-saas)
+
 ---
 
 ## Fonctionnalités
