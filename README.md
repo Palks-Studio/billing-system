@@ -37,6 +37,8 @@ Billing System is a suite of three interconnected billing tools accessible from 
 
 The system is designed to be deployed directly on the client's server, on a standard Apache hosting environment with PHP 8.x and Composer. It requires no database, no third-party service, and no subscription.
 
+[![Invoicing without SaaS](https://img.shields.io/badge/Invoicing%20without%20SaaS-0095b1?style=flat)](https://palks-studio.com/en/invoicing-without-saas)
+
 ---
 
 ## Features
