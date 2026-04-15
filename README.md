@@ -42,9 +42,7 @@ The system is designed to be deployed directly on the client's server, on a stan
 ---
 
 ## Features
-
-- Client-side quote PDF generation (jsPDF)  
-- Server-side invoice PDF generation (Dompdf)  
+- Server-side PDF quote generation (mPDF)  
 - Automatic pre-generation of the paid invoice at billing time  
 - Electronic quote signing by the client (touch/mouse canvas)  
 - Client auto-fill from archives (SIREN, SIRET, VAT, email, name)  
@@ -72,8 +70,7 @@ billing-system-en/
 │   │  └── assets/
 │   │      ├── logo*              → User logo if provided
 │   │      ├── signature.png      → User signature used on quotes and invoices
-│   │      ├── favicon*           → Optional site favicon displayed in the browser tab
-│   │      └── jspdf.umd.min.js   → jsPDF library used to generate PDFs in the browser
+│   │      └── favicon*           → Optional site favicon displayed in the browser tab
 │   │
 │   ├── generator-direct.php      → Quote generation endpoint
 │   ├── engine-direct.php         → Invoice generation endpoint
@@ -121,8 +118,6 @@ billing-system-en/
 ## The Three Modules
 
 ### 1. Quote Generator (`quote-generator.php`)
-
-Quote creation interface with PDF generation entirely in the browser (jsPDF). No data is sent to the server before the user confirms.
 
 **Workflow:**
 
