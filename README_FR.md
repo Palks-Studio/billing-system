@@ -42,8 +42,7 @@ Le système est conçu pour être déployé directement chez le client, sur un h
 
 ## Fonctionnalités
 
-- Génération de devis PDF côté navigateur (jsPDF)  
-- Génération de facture PDF côté serveur (Dompdf)  
+- Interface de création de devis et factures avec génération PDF côté serveur via mPDF  
 - Génération automatique de la facture acquittée au moment de la facturation  
 - Signature électronique du devis par le client (canvas tactile/souris)  
 - Auto-remplissage client depuis les archives (SIREN, SIRET, TVA, email, nom)  
@@ -71,8 +70,7 @@ billing-system-fr/
 │   │  └── assets/
 │   │      ├── logo*              → Logo de l'entreprise si fourni
 │   │      ├── signature.png      → Signature de l'utilisateur utilisée sur les devis et les factures (format PNG)
-│   │      ├── favicon*           → Favicon optionnel affiché dans l’onglet du navigateur
-│   │      └── jspdf.umd.min.js   → Bibliothèque jsPDF utilisée pour générer les PDF dans le navigateur
+│   │      └── favicon*           → Favicon optionnel affiché dans l’onglet du navigateur
 │   │
 │   ├── generator-direct.php      → Endpoint de génération de devis
 │   ├── engine-direct.php         → Endpoint de génération de facture
@@ -124,8 +122,6 @@ billing-system-fr/
 ## Les trois modules
 
 ### 1. Générateur de devis (`quote-generator.php`)
-
-Interface de création de devis avec génération PDF entièrement côté navigateur (jsPDF). Aucune donnée ne transite vers le serveur avant validation.
 
 **Fonctionnement :**
 
