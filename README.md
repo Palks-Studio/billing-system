@@ -100,7 +100,7 @@ billing-system/
 ├── contracts/                    → Signed and unsigned quote archiving
 ├── counters/                     → Numbering counters (quotes and invoices)
 ├── logs/                         → System logs (optional)
-└── data/                         → Operational data
+├── data/                         → Operational data
 │
 └── docs/
     ├── USER_GUIDE.md             → User guide
