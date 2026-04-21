@@ -23,11 +23,13 @@
 
 > ⚠️ This repository presents the project and its technical documentation.  
 > The production version is not publicly distributed.
->
+
 > Installation is performed directly on the client's hosting infrastructure.  
 > If you are interested in using this system, please contact **Palks Studio**.
 
 Complete, autonomous and bilingual (FR/EN) billing system deployable on any PHP/Apache hosting. No database. No SaaS dependency. Self-hosted with full ownership of your data.
+
+[![Invoicing without SaaS](https://img.shields.io/badge/Invoicing%20without%20SaaS-0095b1?style=flat)](https://palks-studio.com/en/invoicing-without-saas)
 
 ---
 
@@ -37,12 +39,11 @@ Billing System is a suite of three interconnected billing tools accessible from 
 
 The system is designed to be deployed directly on the client's server, on a standard Apache hosting environment with PHP 8.x and Composer. It requires no database, no third-party service, and no subscription.
 
-[![Invoicing without SaaS](https://img.shields.io/badge/Invoicing%20without%20SaaS-0095b1?style=flat)](https://palks-studio.com/en/invoicing-without-saas)
-
 ---
 
 ## Features
-- Server-side PDF quote generation (mPDF)  
+
+- Interface de création de devis et factures avec génération PDF côté serveur via mPDF  
 - Automatic pre-generation of the paid invoice at billing time  
 - Electronic quote signing by the client (touch/mouse canvas)  
 - Client auto-fill from archives (SIREN, SIRET, VAT, email, name)  
@@ -64,47 +65,42 @@ The system is designed to be deployed directly on the client's server, on a stan
 ## Project Structure
 
 ```
-billing-system-en/
+billing-system/
 │
-├── billing-public/
+├── public/
 │   │  └── assets/
-│   │      ├── logo*              → User logo if provided
-│   │      ├── signature.png      → User signature used on quotes and invoices
-│   │      └── favicon*           → Optional site favicon displayed in the browser tab
+│   │      ├── logo*              → Company logo if provided
+│   │      ├── signature.png      → User signature used on quotes and invoices (PNG format)
+│   │      └── favicon*           → Optional favicon displayed in the browser tab
 │   │
-│   ├── generator-direct.php      → Quote generation endpoint
-│   ├── engine-direct.php         → Invoice generation endpoint
-│   ├── invoice-direct.php        → Direct invoice generation endpoint
+│   ├── Endpoint a                → Quote generation endpoint
+│   ├── Endpoint b                → Invoice generation endpoint
+│   ├── Endpoint c                → Direct invoice generation endpoint
+│   ├── Endpoint d                → Paid invoice generation endpoint
 │   │
-│   ├── quote-generator.php       → Web interface for quote generation
-│   ├── invoice-engine.php        → Web interface for direct invoice generation
-│   ├── mark-paid.php             → Web interface used to mark an invoice as paid
-│   ├── signer.php                → Web interface for quote viewing and signing
-│   ├── export-invoices.php       → ZIP export of archived invoices
-│   ├── export-recettes.php       → CSV export of the revenue journal
+│   ├── Interface a               → Quote generation interface
+│   ├── Interface b               → Direct invoice generation interface
+│   ├── Interface c               → Payment tracking interface
+│   ├── sign.php                  → Signature interface
+│   ├── export a                  → Archived invoices ZIP export
+│   ├── export b                  → Revenue journal CSV export
 │   │
-│   ├── config.php                → Central configuration for issuer and bank details
-│   ├── lookup.php                → Client information lookup and auto-fill
-│   ├── pdf-proxy.php             → Secure PDF access via token
-│   ├── .htaccess                 → Apache security and configuration rules
-│   └── quote-generator-save.php  → Generated quote saving and archiving
+│   ├── search.php                → Client search and auto-fill
+│   ├── serve.php                 → Secure PDF access via token
+│   └── save.php                  → Quote save and archiving
 │
-├── vendor/                       → Libraries used for PDF document generation
-├── templates/                    → HTML templates used to render documents
-│   └── invoice-template.php      → Document rendering template (PDF or preview)
-│ 
+├── vendor/                       → Libraries used by the document generation engine
+├── templates/                    → HTML templates used for document rendering
+│
+├── app.php                       → Central configuration for issuer and bank details
 ├── mailer.php                    → Internal email sending script with attachments
-├── engine.php                    → Main engine: document generation, calculations and archiving logic
+├── core.php                      → Main engine: generation logic, calculations and archiving
 ├── LICENSE.md                    → Project license
-│ 
-├── contracts/                    → Archive of signed and unsigned quotes
-├── counters/                     → Sequential numbering counters for quotes and invoices
+│
+├── contracts/                    → Signed and unsigned quote archiving
+├── counters/                     → Numbering counters (quotes and invoices)
 ├── logs/                         → System logs (optional)
-├── data/
-│   ├── invoices/                 → Archive of invoices awaiting payment
-│   ├── invoices_state/           → Pre-generated paid invoices
-│   ├── invoices_paid/            → Paid invoices archive
-│   └── revenues/                 → Revenue CSV files
+└── data/                         → Operational data
 │
 └── docs/
     ├── USER_GUIDE.md             → User guide
@@ -117,126 +113,125 @@ billing-system-en/
 
 ## The Three Modules
 
-### 1. Quote Generator (`quote-generator.php`)
+### 1. Quote generator
 
-**Workflow:**
+**How it works:**  
 
-1. The user fills in the form: issuer details, client details, service lines, bank details, settings (currency, PDF language).  
-2. A live total preview (excl. VAT / VAT / incl. VAT) is calculated in real time.  
+1. The user fills in the form: issuer details, client details, service lines, bank details, and settings (currency, PDF language).  
+2. A live preview of totals (excl. VAT / VAT / incl. VAT) is calculated in real time.  
 3. On submission, a confirmation dialog appears before generation.  
-4. The PDF is generated locally and downloaded. Simultaneously, the quote is archived server-side with a signature token valid for 30 days.  
-5. An email is sent to the client with a link to review and sign online.
+4. The PDF is generated locally and downloaded. At the same time, the quote is archived server-side with a signature token valid for 30 days.  
+5. An email is sent to the client with a link to review and sign the quote online.
 
-**Technical details:**
+**Technical details:**  
 
-- Numbering is automatic and resumes from the client's existing base  
-- Client auto-fill by SIREN, SIRET, VAT number, email or name (lookup in archives)  
-- Browser-side Luhn validation for SIRET/SIREN  
-- Auto-fill SIREN from SIRET  
-- Real-time FR/EN language switch without page reload (100+ i18n keys)  
+- Automatic numbering based on the client’s existing records  
+- Client auto-fill using SIREN, SIRET, VAT number, email, or name  
+- Client-side validation of SIREN/SIRET (Luhn algorithm)  
+- Automatic SIREN extraction from SIRET  
+- Real-time language switch (FR/EN) without page reload  
 - Currency selector: EUR, USD, GBP, CHF, CAD  
-- Conditional bank details (IBAN/BIC) in PDF  
-- "Approval" block with configurable signature image  
-- Conditional VAT footer (art. 293B CGI if VAT = 0)  
+- Conditional display of bank details (IBAN/BIC) in the PDF  
+- “Approved and agreed” section with configurable signature image  
+- Conditional VAT footer (e.g. VAT exemption under art. 293B CGI when VAT = 0)  
 - Automatic PDF pagination
 
 ---
 
-### 2. Direct Invoicing (`invoice-engine.php`)
+### 2. Direct invoicing
 
-Server-side invoice generation interface via Dompdf. Produces two PDFs simultaneously on each generation: the standard invoice and the paid invoice (pre-generated, awaiting payment confirmation).
+Server-side invoice generation interface. For each operation, two PDFs are produced: the standard invoice and a pre-generated “paid” version (pending payment validation).
 
-**Workflow:**
+**How it works:**  
 
-1. The user fills in the form: client details, service lines, service date, optional deposit, associated quote reference.  
-2. On submission, the server validates the data, generates both PDFs and archives the metadata.  
-3. The standard invoice is downloaded automatically and emailed to the client as an attachment.  
-4. The paid invoice is stored in `invoices_state/` awaiting payment confirmation.
-
-**Technical details:**
-
-- Annual sequential numbering in the format `ALT-YYYY-0001` with file lock (`flock`). The counter resumes from the client's existing base if invoices are already present  
-- Protection against duplicate invoicing on the same quote reference (HTTP 409)  
-- Full input validation with FR/EN error messages  
-- `money2()` calculation with epsilon correction (float precision)  
-- VAT aggregation by rate  
-- PNG logo converted to JPEG via GD if available (transparency handling for Dompdf). Without transparency, the output is identical  
-- Issuer details retrieved from the most recent known `meta.json`  
-- SHA256 of archived PDF stored in metadata  
-- Email with PDF attachment via internal mailer
-
----
-
-### 3. Settlement & Payment Tracking (`mark-paid.php`)
-
-Interface for tracking pending invoices and confirming settlement. Displays the list of generated invoices not yet paid, allows marking them as paid, and maintains a revenue log.
-
-**Workflow:**
-
-1. The module automatically scans `invoices_state/` and lists all pre-generated paid invoices not yet confirmed.  
-2. The user selects the payment date and clicks "Mark as paid".  
-3. The system moves the paid PDF to `invoices_paid/`, updates the `meta.json`, appends a line to the revenue CSV, logs the operation, and emails the paid invoice to the client.  
-4. A table of the 10 most recent revenues for the current year is displayed at the bottom of the page.
+1. The user fills in the form: issuer details, client details, service lines, bank details, and settings (currency, PDF language).  
+2. A live preview of totals (excl. VAT / VAT / incl. VAT) is calculated in real time.  
+3. On submission, a confirmation dialog appears before generation.  
+4. The invoice PDF is generated and downloaded. At the same time, the documents are archived server-side for tracking and payment validation.  
+5. An email is sent to the client with the invoice attached.
 
 **Technical details:**
 
-- Recursive scan via `RecursiveIteratorIterator` (detects both `_ACQUITTEE.pdf` and `_PAID.pdf`)  
-- Filters already-paid invoices via `meta.json`  
-- CSV deduplication (checks invoice number before appending)  
-- `flock` on all file writes  
-- POST→GET redirect (`?success=`) to prevent form resubmission  
-- Pending invoice counter badge  
-- Annual CSV export `recettes-YYYY.csv` with `;` separator
+- Annual invoice numbering with collision protection  
+- Protection against duplicate invoicing from the same quote reference  
+- Full input validation with bilingual error handling (FR/EN)  
+- Accurate financial calculations with float precision handling  
+- VAT aggregation per rate  
+- Automatic logo processing for PDF compatibility  
+- Automatic retrieval of issuer information from existing metadata  
+- PDF traceability via cryptographic hash (SHA-256)  
+- Email delivery with PDF attachment, without external dependencies
 
 ---
 
-### Supporting Modules
+### 3. Payment validation and tracking
 
-#### Electronic Signature (`signer.php`)
+Interface for tracking outstanding invoices and validating payments. Allows users to identify unpaid invoices, mark them as paid, and monitor revenue.
 
-Public page accessible by the client via a tokenised link. Allows reviewing the quote and appending an electronic signature.
+**How it works:**  
 
-- Multi-page PDF preview via pdf.js  
-- Touch and mouse signature canvas (devicePixelRatio, resize handler)  
-- Format validation (PNG data URI, minimum size)  
-- PNG signature saved to disk  
-- `meta.json` update (`signed_at`, `sign_ip_hash`)  
-- Dual FR/EN confirmation email: client + issuer  
-- Protection against double signing  
-- Link expiry at 30 days
+1. The module automatically detects invoices awaiting payment.  
+2. The user selects a payment date and clicks “Mark as paid”.  
+3. The system archives the invoice as paid, updates the metadata, records the transaction in the revenue log, and sends the invoice to the client by email.  
+4. A table displaying the latest revenue entries of the year is shown at the bottom of the page.
 
-#### Client Auto-fill (`lookup.php`)
+**Technical details:**  
 
-JSON endpoint called on form input. Searches quote archives by SIREN, SIRET, VAT number, email, name or quote number.
+- Automatic detection of invoices to process  
+- Filtering of invoices already marked as paid  
+- Prevention of duplicate entries in the revenue log  
+- Safe write operations with file locking  
+- Protection against form resubmission  
+- Pending invoices counter indicator  
+- Annual CSV export of revenue
 
-- Returns full client details, lang, currency, client quote list  
-- Returns quote lines for automatic invoice pre-fill  
-- Query normalisation (whitespace removal for SIREN/SIRET)  
-- Triple scan pass (contracts → exact quote → meta files)
+---
 
-#### Secured PDF Access (`pdf-proxy.php`)
+### Shared modules
 
-Token-based PDF proxy. Serves a PDF without exposing its physical path on the server.
+#### Electronic signature
 
-#### Internal Mailer (`mailer.php`)
+Public page accessible via a secure tokenized link. Allows the client to view the quote and provide an electronic signature.
 
-Email sending engine with attachment support. Used by all modules. No external SMTP dependency.
+- Multi-page PDF preview in the browser  
+- Signature capture (touch and mouse compatible)  
+- Input validation (format and minimum size)  
+- Signature image storage  
+- Metadata update with signature timestamp and traceability  
+- Confirmation emails sent to both client and issuer (FR/EN)  
+- Protection against duplicate signing  
+- Link expiration after 30 days
+
+#### Client auto-fill
+
+JSON endpoint used during form input. Searches existing records based on SIREN, SIRET, VAT number, email, name, or quote number.
+
+- Returns full client details, language, currency, and related records  
+- Allows automatic pre-fill of invoice data from previous quotes  
+- Input normalization for consistent matching
+
+#### Secure PDF access
+
+Token-based access layer for serving PDF files without exposing their physical location.
+
+#### Internal mailer
+
+Email sending module with attachment support, used across all features. No external SMTP service required.
 
 ---
 
 ## Security
 
-- Hardened PHP sessions: `httponly`, `secure`, `samesite=Strict`  
-- Brute-force protection: blocked after 10 failed attempts  
-- `session_regenerate_id()` on every successful login  
-- Signed tokens `bin2hex(random_bytes(32))` for quotes  
-- Strict regex validation of tokens (64-char hex)  
-- SHA256 hash of IP address (GDPR-safe, non-reversible)  
-- SHA256 hash of archived PDF  
-- All endpoints protected by session guard  
-- `X-Content-Type-Options: nosniff` on all responses  
-- `Cache-Control: no-store` on all authenticated pages  
-- `noindex, nofollow` on all internal interfaces
+- Secure session management (protected cookies, access isolation)  
+- Protection against brute-force attempts  
+- Session identifier regeneration after authentication  
+- Use of secure tokens for accessing sensitive resources  
+- Strict validation of inputs and identifiers  
+- Action traceability via cryptographic hashing  
+- Endpoint protection through access control mechanisms  
+- HTTP response security policies (content type, caching, indexing)  
+- Internal interfaces are not indexed and not publicly exposed  
+- No external dependencies: all data remains under full control
 
 ---
 
@@ -253,31 +248,31 @@ All emails are bilingual FR/EN based on the document language.
 
 ---
 
-## Technical Requirements
+## Technical requirements
 
 - PHP 8.1 or higher  
-- Apache with `mod_rewrite`  
-- Composer  
-- GD extension (PNG logo conversion)  
-- Active `mail()` function on the server (or SMTP configured via mailer)  
-- `contracts/`, `data/`, `counters/`, `logs/` directories writable by the web server
+- Compatible web server (Apache recommended)  
+- URL rewriting support  
+- GD extension (image processing)  
+- Email sending capability enabled on the server  
+- Write permissions on storage and archive directories
 
 ---
 
-## Archiving & Data
+## Data storage
 
-All data is stored as flat files. No database is required.
+All data is stored using flat files. No database is required.
 
-| Type                      | Location                                   | Format              |
-|---------------------------|--------------------------------------------|---------------------|
-| Quotes                    | `contracts/YYYY-MM/{client_id}/`           | PDF + meta.json     |
-| Signatures                | `contracts/YYYY-MM/{client_id}/`           | PNG                 |
-| Invoices                  | `data/invoices/{client_id}/YYYY-MM/`       | PDF + meta.json     |
-| Paid invoices (pending)   | `data/invoices_state/{client_id}/YYYY-MM/` | PDF                 |
-| Paid invoices (confirmed) | `data/invoices_paid/{client_id}/YYYY-MM/`  | PDF                 |
-| Revenues                  | `data/revenues/recettes-YYYY.csv`          | CSV (`;` separator) |
-| Counters                  | `counters/invoice_seq_YYYY.txt`            | Integer             |
-| Logs                      | `logs/*.log`                               | Timestamped text    |
+| Type                     | Description                                   | Format              |
+|--------------------------|-----------------------------------------------|---------------------|
+| Quotes                   | Archived with associated metadata             | PDF + metadata      |
+| Signatures               | Stored as image files                         | PNG                 |
+| Invoices                 | Archived with associated metadata             | PDF + metadata      |
+| Pending paid invoices    | Pre-generated and awaiting validation         | PDF                 |
+| Validated paid invoices  | Archived after payment confirmation           | PDF                 |
+| Revenue records          | Structured export of transactions             | CSV                 |
+| Counters                 | Sequential numbering tracking                 | Integer             |
+| Logs                     | System activity tracking                      | Timestamped text    |
 
 ---
 
