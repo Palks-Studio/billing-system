@@ -1,7 +1,7 @@
 <p align="center">
   <img src="docs/images/paid_fr.png"
        alt="Interface d’acquittement des factures — consultation des factures en attente et marquage comme payées"
-       width="1200">
+       width="600">
 </p>
 
 > 🇫🇷 Français | [🇬🇧 English](./README.md)
@@ -57,7 +57,13 @@ Le système est conçu pour être déployé directement chez le client, sur un h
 - Mode sombre / mode clair persisté  
 - Aucune base de données  
 - Aucune dépendance SaaS  
-- Sécurité minimale : sessions sécurisées, tokens, anti-brute force
+- Sécurité minimale : sessions sécurisées, tokens, anti-brute force  
+- Gestion internationale : mentions légales TVA automatiques selon la zone client (FR / UE / hors UE)  
+- TVA forcée à 0 % pour les clients UE et hors UE, avec mention légale adaptée  
+- 249 pays centralisés dans `countries.php` — code ISO en backend, nom complet en interface  
+- Autocomplétion pays sans accents, affichage en nom complet, transmission en ISO  
+- Colonne TVA masquée dans les documents si aucune TVA applicable  
+- Colonne `zone_tva` dans le journal des recettes CSV (valeurs : `fr`, `eu`, `world`)
 
 ---
 
@@ -84,6 +90,7 @@ billing-system/
 │   ├── export a                  → Export ZIP des factures archivées
 │   ├── export b                  → Export CSV du journal des recettes
 │   │
+│   ├── countries.php             → Liste de 249 pays au format ISO
 │   ├── search.php                → Recherche et auto-remplissage des informations client
 │   ├── serve.php                 → Accès sécurisé aux PDF via token
 │   └── save.php                  → Sauvegarde des devis générés et archivage
