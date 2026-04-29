@@ -1,7 +1,7 @@
 <p align="center">
   <img src="docs/images/paid_en.png"
        alt="Invoice payment interface — view pending invoices and mark them as paid"
-       width="1200">
+       width="600">
 </p>
 
 > 🇬🇧 English | [🇫🇷 Français](./README_FR.md)
