@@ -58,7 +58,13 @@ The system is designed to be deployed directly on the client's server, on a stan
 - Dark mode / light mode with persistence  
 - No database  
 - No SaaS dependency  
-- Basic security: secure sessions, tokens, brute-force protection
+- Basic security: secure sessions, tokens, brute-force protection  
+- International support: automatic VAT legal notice based on client zone (FR / EU / non-EU)  
+- VAT forced to 0% for EU and non-EU clients, with appropriate legal notice  
+- 249 countries centralised in `countries.php` — ISO code in backend, full name in UI  
+- Country autocomplete without accents, displayed as full name, transmitted as ISO  
+- VAT column hidden in documents when no VAT applies  
+- `vat_zone` column in CSV revenue journal (values: `fr`, `eu`, `world`)
 
 ---
 
@@ -85,6 +91,7 @@ billing-system/
 │   ├── export a                  → Archived invoices ZIP export
 │   ├── export b                  → Revenue journal CSV export
 │   │
+│   ├── countries.php             → List of 249 countries in ISO format
 │   ├── search.php                → Client search and auto-fill
 │   ├── serve.php                 → Secure PDF access via token
 │   └── save.php                  → Quote save and archiving
