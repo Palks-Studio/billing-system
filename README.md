@@ -64,7 +64,9 @@ The system is designed to be deployed directly on the client's server, on a stan
 - 249 countries centralised in `countries.php` — ISO code in backend, full name in UI  
 - Country autocomplete without accents, displayed as full name, transmitted as ISO  
 - VAT column hidden in documents when no VAT applies  
-- `vat_zone` column in CSV revenue journal (values: `fr`, `eu`, `world`)
+- `vat_zone` column in CSV revenue journal (values: `fr`, `eu`, `world`)  
+- Deposit tracking and cumulative recording per quote  
+- Secure PDF invoice download from the payment interface
 
 ---
 
@@ -99,6 +101,8 @@ billing-system/
 ├── vendor/                       → Libraries used by the document generation engine
 ├── templates/                    → HTML templates used for document rendering
 │
+├── serve.php                     → Secure PDF invoice download
+├── deposit.php                   → Deposit receipt recording
 ├── app.php                       → Central configuration for issuer and bank details
 ├── mailer.php                    → Internal email sending script with attachments
 ├── core.php                      → Main engine: generation logic, calculations and archiving
@@ -168,6 +172,12 @@ Server-side invoice generation interface. For each operation, two PDFs are produ
 - Automatic retrieval of issuer information from existing metadata  
 - PDF traceability via cryptographic hash (SHA-256)  
 - Email delivery with PDF attachment, without external dependencies
+
+### Deposit tracking
+
+The invoicing interface allows recording deposits received against a quote.  
+Amounts accumulate with each entry. The total is automatically pre-filled  
+when the form is loaded via the client lookup.
 
 ---
 
