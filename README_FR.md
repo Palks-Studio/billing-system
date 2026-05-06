@@ -63,7 +63,9 @@ Le système est conçu pour être déployé directement chez le client, sur un h
 - 249 pays centralisés dans `countries.php` — code ISO en backend, nom complet en interface  
 - Autocomplétion pays sans accents, affichage en nom complet, transmission en ISO  
 - Colonne TVA masquée dans les documents si aucune TVA applicable  
-- Colonne `zone_tva` dans le journal des recettes CSV (valeurs : `fr`, `eu`, `world`)
+- Colonne `zone_tva` dans le journal des recettes CSV (valeurs : `fr`, `eu`, `world`)  
+- Enregistrement et cumul des acomptes reçus par devis  
+- Téléchargement sécurisé des factures PDF depuis l'interface de paiement
 
 ---
 
@@ -98,6 +100,8 @@ billing-system/
 ├── vendor/                       → Bibliothèques utilisées par le moteur de génération des documents
 ├── templates/                    → Modèles HTML utilisés pour le rendu des documents
 │
+├── serve.php                     → Téléchargement sécurisé des factures PDF
+├── deposit.php                   → Enregistrement des acomptes reçus
 ├── app.php                       → Configuration centrale de l’émetteur et des coordonnées bancaires
 ├── mailer.php                    → Script interne d’envoi d’emails avec pièces jointes
 ├── core.php                      → Moteur principal : logique de génération, calculs et archivage
@@ -167,6 +171,12 @@ Interface de génération de facture côté serveur via Dompdf. Produit simultan
 - Récupération automatique des informations émetteur depuis les métadonnées existantes  
 - Traçabilité des PDF via empreinte cryptographique (SHA-256)  
 - Envoi des factures par email avec pièce jointe, sans dépendance externe
+
+### Suivi des acomptes
+
+L'interface de facturation permet d'enregistrer les acomptes reçus associés à un devis.  
+Les montants s'accumulent à chaque enregistrement. Le total est automatiquement  
+pré-rempli lors du chargement du formulaire via le lookup client.
 
 ---
 
