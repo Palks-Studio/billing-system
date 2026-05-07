@@ -155,7 +155,7 @@ Server-side invoice generation interface. For each operation, two PDFs are produ
 
 **How it works:**  
 
-1. The user fills in the form: issuer details, client details, service lines, bank details, and settings (currency, PDF language).  
+1. The user fills in the form: client details auto-filled via lookup, selection of the associated quote from the list, invoice lines loaded automatically upon quote selection, service date, optional deposit.
 2. A live preview of totals (excl. VAT / VAT / incl. VAT) is calculated in real time.  
 3. On submission, a confirmation dialog appears before generation.  
 4. The invoice PDF is generated and downloaded. At the same time, the documents are archived server-side for tracking and payment validation.  
