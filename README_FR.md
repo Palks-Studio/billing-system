@@ -127,7 +127,7 @@ billing-system/
 
 **Fonctionnement :**
 
-1. L'utilisateur remplit le formulaire : coordonnées émetteur, coordonnées client, lignes de prestation, coordonnées bancaires, paramètres (devise, langue PDF).  
+1. L'utilisateur remplit le formulaire : coordonnées client auto-remplies via lookup, sélection du devis associé dans la liste, lignes de prestation chargées automatiquement à la sélection du devis, date de prestation, acompte éventuel.  
 2. Un aperçu des totaux HT / TVA / TTC est calculé en temps réel.  
 3. À la soumission, une fenêtre de confirmation s'affiche avant génération.  
 4. Le PDF est généré localement et téléchargé. Simultanément, le devis est archivé côté serveur avec un token de signature valable 30 jours.  
