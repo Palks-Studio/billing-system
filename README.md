@@ -106,6 +106,7 @@ billing-system/
 ├── app.php                       → Central configuration for issuer and bank details
 ├── mailer.php                    → Internal email sending script with attachments
 ├── core.php                      → Main engine: generation logic, calculations and archiving
+├── manifest.json                 → System PWA configuration
 ├── LICENSE.md                    → Project license
 │
 ├── contracts/                    → Signed and unsigned quote archiving
