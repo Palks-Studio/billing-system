@@ -105,6 +105,7 @@ billing-system/
 ├── app.php                       → Configuration centrale de l’émetteur et des coordonnées bancaires
 ├── mailer.php                    → Script interne d’envoi d’emails avec pièces jointes
 ├── core.php                      → Moteur principal : logique de génération, calculs et archivage
+├── manifest.json                 → Configuration PWA du système
 ├── LICENCE.md                    → Licence du projet
 │
 ├── contracts/                    → Archivage des devis signés et non signés
