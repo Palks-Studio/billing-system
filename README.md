@@ -73,51 +73,60 @@ The system is designed to be deployed directly on the client's server, on a stan
 ## Project Structure
 
 ```
-billing-system/
+billing-system/ (private)
 │
-├── public/
+├── billing-public/ (public)
 │   │  └── assets/
-│   │      ├── logo*              → Company logo if provided
-│   │      ├── signature.png      → User signature used on quotes and invoices (PNG format)
-│   │      └── favicon*           → Optional favicon displayed in the browser tab
+│   │      ├── logo*                  → Company logo if provided
+│   │      ├── signature.png          → User signature used on quotes and invoices (PNG format)
+│   │      └── favicon*               → Optional favicon displayed in the browser tab
 │   │
-│   ├── Endpoint a                → Quote generation endpoint
-│   ├── Endpoint b                → Invoice generation endpoint
-│   ├── Endpoint c                → Direct invoice generation endpoint
-│   ├── Endpoint d                → Paid invoice generation endpoint
+│   ├── quote-entry.php               → Quote generation entry point
+│   ├── billing-entry.php             → Invoice generation entry point
+│   ├── instant-bill.php              → Direct invoice generation entry point
+│   ├── payment-proof.php             → Paid invoice generation entry point
+│   │ 
+│   ├── quote-space.php               → Quote generation interface
+│   ├── billing-space.php             → Direct invoice generation interface
+│   ├── payment-check.php             → Interface used to mark an invoice as paid
+│   ├── approval.php                  → Quote review and signature interface
+│   ├── archive-export.php            → ZIP export of archived invoices
+│   ├── revenue-export.php            → CSV export of the revenue ledger
 │   │
-│   ├── Interface a               → Quote generation interface
-│   ├── Interface b               → Direct invoice generation interface
-│   ├── Interface c               → Payment tracking interface
-│   ├── sign.php                  → Signature interface
-│   ├── export a                  → Archived invoices ZIP export
-│   ├── export b                  → Revenue journal CSV export
-│   │
-│   ├── countries.php             → List of 249 countries in ISO format
-│   ├── search.php                → Client search and auto-fill
-│   ├── serve.php                 → Secure PDF access via token
-│   └── save.php                  → Quote save and archiving
+│   ├── index.php                     → PWA entry point and manifest loader
+│   ├── countries.php                 → ISO-based list of 249 countries
+│   ├── system-config.php             → Central issuer and banking configuration
+│   ├── client-search.php             → Client lookup and autofill system
+│   ├── secure-access.php             → Secure PDF access via token
+│   ├── download-access.php           → Secure PDF invoice download
+│   ├── deposits.php                  → Deposit payment recording
+│   ├── manifest.json                 → System PWA configuration
+│   └── archive-save.php              → Quote saving and archival system
 │
-├── vendor/                       → Libraries used by the document generation engine
-├── templates/                    → HTML templates used for document rendering
+├── vendor/                           → Libraries used by the document generation engine
+├── templates/                        → HTML templates used for document rendering
+│   └── document-layout.php           → Document rendering template (PDF or preview)
 │
-├── serve.php                     → Secure PDF invoice download
-├── deposit.php                   → Deposit receipt recording
-├── app.php                       → Central configuration for issuer and bank details
-├── mailer.php                    → Internal email sending script with attachments
-├── core.php                      → Main engine: generation logic, calculations and archiving
-├── manifest.json                 → System PWA configuration
-├── LICENSE.md                    → Project license
+├── facturx-builder.php               → Factur-X XML generation
+├── facturx-injector.py               → Factur-X XML injection into the PDF
+├── mail-service.php                  → Internal email delivery script with attachments
+├── document-engine.php               → Main engine: generation logic, calculations and archiving
+├── LICENCE.md                        → Project license
 │
-├── contracts/                    → Signed and unsigned quote archiving
-├── counters/                     → Numbering counters (quotes and invoices)
-├── logs/                         → System logs (optional)
-├── data/                         → Operational data
+├── contracts/                        → Archive of signed and unsigned quotes
+├── counters/                         → Document numbering counters (quotes and invoices)
+├── logs/                             → System logs (optional)
+├── data/
+│   ├── pending-bills/                → Archive of unpaid invoices
+│   ├── staged-payments/              → Pre-generated paid invoices (awaiting payment)
+│   ├── paid-bills/                   → Archived paid invoices
+│   ├── temp-facturx/                 → Temporary Factur-X files
+│   └── revenue-ledger/               → Revenue ledger (CSV)
 │
 └── docs/
-    ├── USER_GUIDE.md             → User guide
-    ├── OVERVIEW.md               → Project overview and general system description
-    └── README.md                 → Installation and usage documentation (client version)
+    ├── USER_GUIDE.md                 → User guide
+    ├── OVERVIEW.md                   → Project and workflow overview
+    └── README.md                     → Installation and usage documentation (client version)
 ```
 
 
