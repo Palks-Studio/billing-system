@@ -160,7 +160,7 @@ billing-system/ (privé)
 
 ### 2. Facturation directe
 
-Interface de génération de facture côté serveur via Dompdf. Produit simultanément deux PDF à chaque génération : la facture normale et la facture acquittée (pré-générée, en attente de paiement).
+Interface de génération de facture côté serveur via mpdf. Produit simultanément deux PDF à chaque génération : la facture normale et la facture acquittée (pré-générée, en attente de paiement).
 
 **Fonctionnement :**
 
