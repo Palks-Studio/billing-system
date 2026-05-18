@@ -72,51 +72,60 @@ Le système est conçu pour être déployé directement chez le client, sur un h
 ## Structure du projet
 
 ```
-billing-system/
+billing-system/ (privé)
 │
-├── public/
+├── billing-public/ (public)
 │   │  └── assets/
-│   │      ├── logo*              → Logo de l'entreprise si fourni
-│   │      ├── signature.png      → Signature de l'utilisateur utilisée sur les devis et les factures (format PNG)
-│   │      └── favicon*           → Favicon optionnel affiché dans l’onglet du navigateur
+│   │      ├── logo*                  → Logo de l’entreprise si fourni
+│   │      ├── signature.png          → Signature de l’utilisateur utilisée sur les devis et factures (format PNG)
+│   │      └── favicon*               → Favicon optionnel affiché dans l’onglet du navigateur
 │   │
-│   ├── Endpoint a                → Endpoint de génération de devis
-│   ├── Endpoint b                → Endpoint de génération de facture
-│   ├── Endpoint c                → Endpoint de génération directe de facture
-│   ├── Endpoint d                → Endpoint de génération de facture acquittée
+│   ├── quote-entry.php               → Point d’entrée de génération de devis
+│   ├── billing-entry.php             → Point d’entrée de génération de facture
+│   ├── instant-bill.php              → Point d’entrée de génération directe de facture
+│   ├── payment-proof.php             → Point d’entrée de génération de facture acquittée
 │   │ 
-│   ├── Interface a               → Interface de génération des devis
-│   ├── Interface b               → Interface de génération directe de facture
-│   ├── Interface c               → Interface permettant de marquer une facture comme payée
-│   ├── sign.php                  → Interface de signature
-│   ├── export a                  → Export ZIP des factures archivées
-│   ├── export b                  → Export CSV du journal des recettes
+│   ├── quote-space.php               → Interface de génération des devis
+│   ├── billing-space.php             → Interface de génération directe de facture
+│   ├── payment-check.php             → Interface permettant de marquer une facture comme payée
+│   ├── approval.php                  → Interface de consultation et signature des devis
+│   ├── archive-export.php            → Export ZIP des factures archivées
+│   ├── revenue-export.php            → Export CSV du journal des recettes
 │   │
-│   ├── countries.php             → Liste de 249 pays au format ISO
-│   ├── search.php                → Recherche et auto-remplissage des informations client
-│   ├── serve.php                 → Accès sécurisé aux PDF via token
-│   └── save.php                  → Sauvegarde des devis générés et archivage
+│   ├── index.php                     → Point d’entrée PWA et chargement du manifest
+│   ├── countries.php                 → Liste ISO de 249 pays
+│   ├── system-config.php             → Configuration centrale de l’émetteur et des coordonnées bancaires
+│   ├── client-search.php             → Recherche et auto-remplissage des informations client
+│   ├── secure-access.php             → Accès sécurisé aux PDF via token
+│   ├── download-access.php           → Téléchargement sécurisé des factures PDF
+│   ├── deposits.php                  → Enregistrement des acomptes reçus
+│   ├── manifest.json                 → Configuration PWA du système
+│   └── archive-save.php              → Sauvegarde et archivage des devis générés
 │
-├── vendor/                       → Bibliothèques utilisées par le moteur de génération des documents
-├── templates/                    → Modèles HTML utilisés pour le rendu des documents
+├── vendor/                           → Bibliothèques utilisées par le moteur de génération des documents
+├── templates/                        → Modèles HTML utilisés pour le rendu des documents
+│   └── document-layout.php           → Template de rendu du document (PDF ou aperçu)
 │
-├── serve.php                     → Téléchargement sécurisé des factures PDF
-├── deposit.php                   → Enregistrement des acomptes reçus
-├── app.php                       → Configuration centrale de l’émetteur et des coordonnées bancaires
-├── mailer.php                    → Script interne d’envoi d’emails avec pièces jointes
-├── core.php                      → Moteur principal : logique de génération, calculs et archivage
-├── manifest.json                 → Configuration PWA du système
-├── LICENCE.md                    → Licence du projet
+├── facturx-builder.php               → Génération du XML Factur-X
+├── facturx-injector.py               → Injection du XML Factur-X dans le PDF
+├── mail-service.php                  → Script interne d’envoi d’emails avec pièces jointes
+├── document-engine.php               → Moteur principal : logique de génération, calculs et archivage
+├── LICENCE.md                        → Licence du projet
 │
-├── contracts/                    → Archivage des devis signés et non signés
-├── counters/                     → Compteurs de numérotation (devis et factures)
-├── logs/                         → Journaux système (optionnel)
-├── data/                         → Données opérationnelles
+├── contracts/                        → Archivage des devis signés et non signés
+├── counters/                         → Compteurs de numérotation (devis et factures)
+├── logs/                             → Journaux système (optionnel)
+├── data/
+│   ├── pending-bills/                → Archivage des factures à régler
+│   ├── staged-payments/              → Factures acquittées pré-générées (en attente de paiement)
+│   ├── paid-bills/                   → Factures acquittées archivées
+│   ├── temp-facturx/                 → Fichiers temporaires Factur-X
+│   └── revenue-ledger/               → Journal des recettes (CSV)
 │
 └── docs/
-    ├── GUIDE_UTILISATEUR.md      → Guide utilisateur
-    ├── OVERVIEW_FR.md            → Vue d’ensemble du projet et de son fonctionnement
-    └── README_FR.md              → Documentation d’installation et d’utilisation (version client)
+    ├── GUIDE_UTILISATEUR.md          → Guide utilisateur
+    ├── OVERVIEW_FR.md                → Vue d’ensemble du projet et de son fonctionnement
+    └── README_FR.md                  → Documentation d’installation et d’utilisation (version client)
 ```
 
 
