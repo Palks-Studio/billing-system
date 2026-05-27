@@ -34,7 +34,7 @@ Système de facturation complet, autonome et bilingue (FR/EN), installable sur t
 
 ## Présentation générale
 
-Billing System est une suite de trois outils de facturation reliés entre eux, accessibles depuis une interface unifiée. Il couvre l'intégralité du cycle de vie d'une prestation :  de l'émission du devis jusqu'à l'acquittement de la facture, en passant par la signature électronique et l'archivage structuré.
+Billing System est une suite de quatre outils de facturation reliés entre eux, accessibles depuis une interface unifiée. Il couvre l'intégralité du cycle de vie d'une prestation :  de l'émission du devis jusqu'à l'acquittement de la facture, en passant par la signature électronique et l'archivage structuré.
 
 Le système est conçu pour être déployé directement chez le client, sur un hébergement Apache standard avec PHP 8.x et Composer. Il ne nécessite ni base de données, ni service tiers, ni abonnement.
 
@@ -65,7 +65,9 @@ Le système est conçu pour être déployé directement chez le client, sur un h
 - Colonne TVA masquée dans les documents si aucune TVA applicable  
 - Colonne `zone_tva` dans le journal des recettes CSV (valeurs : `fr`, `eu`, `world`)  
 - Enregistrement et cumul des acomptes reçus par devis  
-- Téléchargement sécurisé des factures PDF depuis l'interface de paiement
+- Téléchargement sécurisé des factures PDF depuis l'interface de paiement  
+- Suivi des acomptes par statut (non facturé, en attente, payé) avec filtres et pagination  
+- Clôture mensuelle des acomptes payés avec export CSV et archivage JSON
 
 ---
 
@@ -84,10 +86,13 @@ billing-system/ (privé)
 │   ├── billing-entry.php             → Point d’entrée de génération de facture
 │   ├── instant-bill.php              → Point d’entrée de génération directe de facture
 │   ├── payment-proof.php             → Point d’entrée de génération de facture acquittée
+│   ├── deposit-entry.php             → Point d’entrée du suivi d'acomptes
 │   │ 
 │   ├── quote-space.php               → Interface de génération des devis
 │   ├── billing-space.php             → Interface de génération directe de facture
 │   ├── payment-check.php             → Interface permettant de marquer une facture comme payée
+│   ├── payments.php                  → Interface permettant de suivre les acomptes
+│   ├── payments-close.php            → Clôture mensuelle des acomptes payés
 │   ├── approval.php                  → Interface de consultation et signature des devis
 │   ├── archive-export.php            → Export ZIP des factures archivées
 │   ├── revenue-export.php            → Export CSV du journal des recettes
@@ -131,7 +136,7 @@ billing-system/ (privé)
 
 ---
 
-## Les trois modules
+## Les quatre modules
 
 ### 1. Générateur de devis
 
@@ -210,6 +215,33 @@ Interface de suivi des factures en attente et de validation des paiements. Perme
 - Protection contre la double soumission des formulaires  
 - Indicateur du nombre de factures en attente  
 - Export annuel des recettes au format CSV
+
+---
+
+### 4. Suivi des acomptes
+
+Interface de consultation et de gestion des acomptes enregistrés sur les devis.
+
+**Fonctionnement :**
+
+1. Le module scanne les archives de contrats et liste tous les devis avec un acompte enregistré.  
+2. Chaque entrée affiche le statut calculé dynamiquement : non facturé, en attente de paiement, ou payé.  
+3. Les entrées peuvent être filtrées par statut et sont paginées par tranches de 20.  
+4. Une clôture mensuelle permet d'archiver les acomptes dont la facture est payée.
+
+**Clôture mensuelle :**
+
+- Sélection de l'année et du mois à clôturer  
+- Export CSV téléchargeable automatiquement  
+- Archivage JSON dans le répertoire dédié  
+- Marquage `archived: true` dans les métadonnées du contrat  
+- Les entrées archivées disparaissent de la vue active
+
+**Détails techniques :**
+
+- Lecture seule — aucune écriture sur les données existantes hors clôture  
+- Scan combiné des factures en cours et payées pour déterminer le statut  
+- Compatible PHP 7
 
 ---
 
@@ -301,6 +333,7 @@ Toutes les données sont stockées sous forme de fichiers plats. Aucune base de 
 | Recettes                 | Export structuré des transactions                | CSV                 |
 | Compteurs                | Suivi de la numérotation séquentielle            | Entier              |
 | Logs                     | Journal des activités du système                 | Texte horodaté      |
+| Archives acomptes        | Archivage mensuel des acomptes clôturés          | JSON + CSV          |
 
 ---
 
