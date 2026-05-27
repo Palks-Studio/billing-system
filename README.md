@@ -35,7 +35,7 @@ Complete, autonomous and bilingual (FR/EN) billing system deployable on any PHP/
 
 ## Overview
 
-Billing System is a suite of three interconnected billing tools accessible from a unified interface. It covers the full lifecycle of a service engagement: from quote generation to invoice settlement, including electronic signature and structured archiving.
+Billing System is a suite of four interconnected billing tools accessible from a unified interface. It covers the full lifecycle of a service engagement: from quote generation to invoice settlement, including electronic signature and structured archiving.
 
 The system is designed to be deployed directly on the client's server, on a standard Apache hosting environment with PHP 8.x and Composer. It requires no database, no third-party service, and no subscription.
 
@@ -66,7 +66,9 @@ The system is designed to be deployed directly on the client's server, on a stan
 - VAT column hidden in documents when no VAT applies  
 - `vat_zone` column in CSV revenue journal (values: `fr`, `eu`, `world`)  
 - Deposit tracking and cumulative recording per quote  
-- Secure PDF invoice download from the payment interface
+- Secure PDF invoice download from the payment interface  
+- Deposit tracking by status (not invoiced, awaiting payment, paid) with filters and pagination  
+- Monthly close for paid deposits with CSV export and JSON archive
 
 ---
 
@@ -85,10 +87,13 @@ billing-system/ (private)
 │   ├── billing-entry.php             → Invoice generation entry point
 │   ├── instant-bill.php              → Direct invoice generation entry point
 │   ├── payment-proof.php             → Paid invoice generation entry point
+│   ├── deposit-entry.php             → Entry point for deposit tracking
 │   │ 
 │   ├── quote-space.php               → Quote generation interface
 │   ├── billing-space.php             → Direct invoice generation interface
 │   ├── payment-check.php             → Interface used to mark an invoice as paid
+│   ├── payments.php                  → Payment and deposit tracking
+│   ├── payments-close.php            → Monthly payment closing export
 │   ├── approval.php                  → Quote review and signature interface
 │   ├── archive-export.php            → ZIP export of archived invoices
 │   ├── revenue-export.php            → CSV export of the revenue ledger
@@ -132,7 +137,7 @@ billing-system/ (private)
 
 ---
 
-## The Three Modules
+## The Four Modules
 
 ### 1. Quote generator
 
@@ -211,6 +216,33 @@ Interface for tracking outstanding invoices and validating payments. Allows user
 - Protection against form resubmission  
 - Pending invoices counter indicator  
 - Annual CSV export of revenue
+
+---
+
+### 4. Deposit tracking
+
+Interface for viewing and managing deposits recorded on quotes.
+
+**How it works:**
+
+1. The module scans the contract archives and lists all quotes with a recorded deposit.  
+2. Each entry displays a dynamically calculated status: not invoiced, awaiting payment, or paid.  
+3. Entries can be filtered by status and are paginated in batches of 20.  
+4. A monthly close allows archiving deposits whose invoice has been paid.
+
+**Monthly close:**
+
+- Select the year and month to close  
+- CSV automatically downloaded  
+- JSON archive stored in the dedicated directory  
+- `archived: true` flag written to the contract metadata  
+- Archived entries disappear from the active view
+
+**Technical details:**
+
+- Read-only — no writes to existing data outside of the close operation  
+- Combined scan of pending and paid invoices to determine status  
+- PHP 7 compatible
 
 ---
 
@@ -300,6 +332,7 @@ All data is stored using flat files. No database is required.
 | Revenue records          | Structured export of transactions             | CSV                 |
 | Counters                 | Sequential numbering tracking                 | Integer             |
 | Logs                     | System activity tracking                      | Timestamped text    |
+| Deposit archives         | Monthly archive of closed deposits            | JSON + CSV          |
 
 ---
 
