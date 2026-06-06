@@ -67,7 +67,9 @@ Le système est conçu pour être déployé directement chez le client, sur un h
 - Enregistrement et cumul des acomptes reçus par devis  
 - Téléchargement sécurisé des factures PDF depuis l'interface de paiement  
 - Suivi des acomptes par statut (non facturé, en attente, payé) avec filtres et pagination  
-- Clôture mensuelle des acomptes payés avec export CSV et archivage JSON
+- Clôture mensuelle des acomptes payés avec export CSV et archivage JSON  
+- Support des clients particuliers et professionnels avec adaptation automatique des champs d’identification  
+- Gestion des informations d’assurance professionnelle (assureur, numéro de police et coordonnées)
 
 ---
 
@@ -159,7 +161,10 @@ billing-system/ (privé)
 - Coordonnées bancaires (IBAN/BIC) conditionnelles dans le PDF  
 - Bloc « Bon pour accord » avec image de signature configurable  
 - Footer TVA conditionnel (art. 293B CGI si TVA = 0)  
-- Pagination PDF automatique
+- Pagination PDF automatique  
+- Gestion des clients particuliers et professionnels  
+- Masquage automatique des identifiants d’entreprise pour les particuliers  
+- Informations d’assurance professionnelle optionnelles
 
 ---
 
@@ -266,7 +271,7 @@ Page publique accessible via un lien sécurisé. Permet au client de consulter l
 
 Endpoint JSON utilisé lors de la saisie des formulaires. Recherche dans les données existantes via SIREN, SIRET, TVA, email, nom ou numéro de devis.
 
-- Retour des coordonnées complètes, langue, devise et éléments associés  
+- Retour des coordonnées complètes, type de client, langue, devise et éléments associés  
 - Pré-remplissage automatique des factures à partir des devis existants  
 - Normalisation des entrées pour garantir la cohérence des correspondances
 
