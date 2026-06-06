@@ -68,7 +68,9 @@ The system is designed to be deployed directly on the client's server, on a stan
 - Deposit tracking and cumulative recording per quote  
 - Secure PDF invoice download from the payment interface  
 - Deposit tracking by status (not invoiced, awaiting payment, paid) with filters and pagination  
-- Monthly close for paid deposits with CSV export and JSON archive
+- Monthly close for paid deposits with CSV export and JSON archive  
+- Support for individual and business clients with automatic adaptation of company identification fields  
+- Professional insurance information management (insurer, policy number and insurer contact details)
 
 ---
 
@@ -160,7 +162,10 @@ billing-system/ (private)
 - Conditional display of bank details (IBAN/BIC) in the PDF  
 - “Approved and agreed” section with configurable signature image  
 - Conditional VAT footer (e.g. VAT exemption under art. 293B CGI when VAT = 0)  
-- Automatic PDF pagination
+- Automatic PDF pagination  
+- Support for individual and business clients  
+- Automatic hiding of company identification fields for individual clients  
+- Optional professional insurance information
 
 ---
 
@@ -265,7 +270,7 @@ Public page accessible via a secure tokenized link. Allows the client to view th
 
 JSON endpoint used during form input. Searches existing records based on SIREN, SIRET, VAT number, email, name, or quote number.
 
-- Returns full client details, language, currency, and related records  
+- Returns complete client details, client type, language, currency and associated data  
 - Allows automatic pre-fill of invoice data from previous quotes  
 - Input normalization for consistent matching
 
