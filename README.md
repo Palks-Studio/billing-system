@@ -70,7 +70,9 @@ The system is designed to be deployed directly on the client's server, on a stan
 - Deposit tracking by status (not invoiced, awaiting payment, paid) with filters and pagination  
 - Monthly close for paid deposits with CSV export and JSON archive  
 - Support for individual and business clients with automatic adaptation of company identification fields  
-- Professional insurance information management (insurer, policy number and insurer contact details)
+- Professional insurance information management (insurer, policy number and insurer contact details)  
+- Multi-user authentication with individual usernames and passwords  
+- Independent user sessions with secure login management
 
 ---
 
@@ -102,7 +104,6 @@ billing-system/ (private)
 │   │
 │   ├── index.php                     → PWA entry point and manifest loader
 │   ├── countries.php                 → ISO-based list of 249 countries
-│   ├── system-config.php             → Central issuer and banking configuration
 │   ├── client-search.php             → Client lookup and autofill system
 │   ├── secure-access.php             → Secure PDF access via token
 │   ├── download-access.php           → Secure PDF invoice download
@@ -114,6 +115,8 @@ billing-system/ (private)
 ├── templates/                        → HTML templates used for document rendering
 │   └── document-layout.php           → Document rendering template (PDF or preview)
 │
+├── system-config.php                 → Central issuer and banking configuration
+├── auth.php                          → User authentication management
 ├── facturx-builder.php               → Factur-X XML generation
 ├── facturx-injector.py               → Factur-X XML injection into the PDF
 ├── mail-service.php                  → Internal email delivery script with attachments
@@ -295,7 +298,8 @@ Email sending module with attachment support, used across all features. No exter
 - Endpoint protection through access control mechanisms  
 - HTTP response security policies (content type, caching, indexing)  
 - Internal interfaces are not indexed and not publicly exposed  
-- No external dependencies: all data remains under full control
+- No external dependencies: all data remains under full control  
+- Multi-user authentication via dedicated user accounts
 
 ---
 
