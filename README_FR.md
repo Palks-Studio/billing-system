@@ -69,7 +69,9 @@ Le système est conçu pour être déployé directement chez le client, sur un h
 - Suivi des acomptes par statut (non facturé, en attente, payé) avec filtres et pagination  
 - Clôture mensuelle des acomptes payés avec export CSV et archivage JSON  
 - Support des clients particuliers et professionnels avec adaptation automatique des champs d’identification  
-- Gestion des informations d’assurance professionnelle (assureur, numéro de police et coordonnées)
+- Gestion des informations d’assurance professionnelle (assureur, numéro de police et coordonnées)  
+- Gestion multi-utilisateurs avec identifiants et mots de passe individuels  
+- Sessions utilisateur indépendantes avec authentification sécurisée
 
 ---
 
@@ -101,7 +103,6 @@ billing-system/ (privé)
 │   │
 │   ├── index.php                     → Point d’entrée PWA et chargement du manifest
 │   ├── countries.php                 → Liste ISO de 249 pays
-│   ├── system-config.php             → Configuration centrale de l’émetteur et des coordonnées bancaires
 │   ├── client-search.php             → Recherche et auto-remplissage des informations client
 │   ├── secure-access.php             → Accès sécurisé aux PDF via token
 │   ├── download-access.php           → Téléchargement sécurisé des factures PDF
@@ -113,6 +114,8 @@ billing-system/ (privé)
 ├── templates/                        → Modèles HTML utilisés pour le rendu des documents
 │   └── document-layout.php           → Template de rendu du document (PDF ou aperçu)
 │
+├── system-config.php                 → Configuration centrale de l’émetteur et des coordonnées bancaires
+├── auth.php                          → Gestion des utilisateurs autorisés
 ├── facturx-builder.php               → Génération du XML Factur-X
 ├── facturx-injector.py               → Injection du XML Factur-X dans le PDF
 ├── mail-service.php                  → Script interne d’envoi d’emails avec pièces jointes
@@ -296,7 +299,8 @@ Module d’envoi d’emails avec gestion des pièces jointes, utilisé par l’e
 - Protection des endpoints par contrôle d’accès  
 - Politique de sécurité des réponses HTTP (type, cache, indexation)  
 - Interfaces internes non indexées et non exposées publiquement  
-- Aucune dépendance à des services externes : toutes les données restent sous contrôle
+- Aucune dépendance à des services externes : toutes les données restent sous contrôle  
+- Authentification multi-utilisateurs via comptes dédiés
 
 ---
 
