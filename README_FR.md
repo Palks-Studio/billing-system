@@ -71,7 +71,9 @@ Le système est conçu pour être déployé directement chez le client, sur un h
 - Support des clients particuliers et professionnels avec adaptation automatique des champs d’identification  
 - Gestion des informations d’assurance professionnelle (assureur, numéro de police et coordonnées)  
 - Gestion multi-utilisateurs avec identifiants et mots de passe individuels  
-- Sessions utilisateur indépendantes avec authentification sécurisée
+- Sessions utilisateur indépendantes avec authentification sécurisée  
+- International VAT handling with automatic legal notices based on client location (France / EU / non-EU), operation type (service or sale of goods), and issuer tax status  
+- Support for services and sales of goods with automatic adaptation of applicable VAT legal notices
 
 ---
 
@@ -147,7 +149,7 @@ billing-system/ (privé)
 
 **Fonctionnement :**
 
-1. L'utilisateur remplit le formulaire : coordonnées client auto-remplies via lookup, sélection du devis associé dans la liste, lignes de prestation chargées automatiquement à la sélection du devis, date de prestation, acompte éventuel.  
+1. The user fills in the form: issuer details, client details, operation type (service or sale of goods), invoice lines, bank details, and document settings (currency and PDF language).  
 2. Un aperçu des totaux HT / TVA / TTC est calculé en temps réel.  
 3. À la soumission, une fenêtre de confirmation s'affiche avant génération.  
 4. Le PDF est généré localement et téléchargé. Simultanément, le devis est archivé côté serveur avec un token de signature valable 30 jours.  
@@ -167,7 +169,8 @@ billing-system/ (privé)
 - Pagination PDF automatique  
 - Gestion des clients particuliers et professionnels  
 - Masquage automatique des identifiants d’entreprise pour les particuliers  
-- Informations d’assurance professionnelle optionnelles
+- Informations d’assurance professionnelle optionnelles  
+- Support for both services and sales of goods with automatic VAT legal notice selection
 
 ---
 
@@ -177,7 +180,7 @@ Interface de génération de facture côté serveur via mpdf. Produit simultané
 
 **Fonctionnement :**
 
-1. L’utilisateur remplit le formulaire : informations émetteur, informations client, lignes de prestation, coordonnées bancaires, paramètres (devise, langue du PDF).  
+1. The user fills in the form: client details automatically populated through lookup, operation type (service or sale of goods), client type (individual or business), professional insurance information, selection of the related quote, invoice lines automatically loaded from the selected quote, service date, and any applicable deposit.  
 2. Un aperçu des totaux (HT / TVA / TTC) est calculé en temps réel.  
 3. À la soumission, une fenêtre de confirmation s’affiche avant la génération.  
 4. Le PDF est généré localement puis téléchargé. En parallèle, le devis est archivé côté serveur avec un jeton de signature valide pendant 30 jours.  
