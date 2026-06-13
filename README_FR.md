@@ -73,7 +73,11 @@ Le système est conçu pour être déployé directement chez le client, sur un h
 - Gestion multi-utilisateurs avec identifiants et mots de passe individuels  
 - Sessions utilisateur indépendantes avec authentification sécurisée  
 - International VAT handling with automatic legal notices based on client location (France / EU / non-EU), operation type (service or sale of goods), and issuer tax status  
-- Support for services and sales of goods with automatic adaptation of applicable VAT legal notices
+- Support for services and sales of goods with automatic adaptation of applicable VAT legal notices  
+- Enregistrement et suivi des dépenses professionnelles  
+- Gestion des justificatifs (PDF, JPG, PNG)  
+- Historique des dépenses avec filtres mensuels et annuels  
+- Export CSV du journal des dépenses
 
 ---
 
@@ -93,15 +97,18 @@ billing-system/ (privé)
 │   ├── instant-bill.php              → Point d’entrée de génération directe de facture
 │   ├── payment-proof.php             → Point d’entrée de génération de facture acquittée
 │   ├── deposit-entry.php             → Point d’entrée du suivi d'acomptes
+│   ├── expenses-entry.php            → Point d’entrée de gestion des dépenses
 │   │ 
 │   ├── quote-space.php               → Interface de génération des devis
 │   ├── billing-space.php             → Interface de génération directe de facture
 │   ├── payment-check.php             → Interface permettant de marquer une facture comme payée
+│   ├── expenses-check.php            → Interface permettant de suivre les dépenses
 │   ├── payments.php                  → Interface permettant de suivre les acomptes
 │   ├── payments-close.php            → Clôture mensuelle des acomptes payés
 │   ├── approval.php                  → Interface de consultation et signature des devis
 │   ├── archive-export.php            → Export ZIP des factures archivées
 │   ├── revenue-export.php            → Export CSV du journal des recettes
+│   ├── expense-export.php            → Export CSV du journal des dépenses
 │   │
 │   ├── index.php                     → Point d’entrée PWA et chargement du manifest
 │   ├── countries.php                 → Liste ISO de 249 pays
@@ -109,6 +116,7 @@ billing-system/ (privé)
 │   ├── secure-access.php             → Accès sécurisé aux PDF via token
 │   ├── download-access.php           → Téléchargement sécurisé des factures PDF
 │   ├── deposits.php                  → Enregistrement des acomptes reçus
+│   ├── attachment.php                → Visualisation des justificatifs
 │   ├── manifest.json                 → Configuration PWA du système
 │   └── archive-save.php              → Sauvegarde et archivage des devis générés
 │
