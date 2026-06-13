@@ -72,7 +72,9 @@ The system is designed to be deployed directly on the client's server, on a stan
 - Support for individual and business clients with automatic adaptation of company identification fields  
 - Professional insurance information management (insurer, policy number and insurer contact details)  
 - Multi-user authentication with individual usernames and passwords  
-- Independent user sessions with secure login management
+- Independent user sessions with secure login management  
+- International VAT handling with automatic legal notices based on client location (France / EU / non-EU), operation type (service or sale of goods), and issuer tax status  
+- Support for services and sales of goods with automatic adaptation of applicable VAT legal notices
 
 ---
 
@@ -148,7 +150,7 @@ billing-system/ (private)
 
 **How it works:**  
 
-1. The user fills in the form: issuer details, client details, service lines, bank details, and settings (currency, PDF language).  
+1. The user fills in the form: issuer details, client details, operation type (service or sale of goods), invoice lines, bank details, and document settings (currency and PDF language).  
 2. A live preview of totals (excl. VAT / VAT / incl. VAT) is calculated in real time.  
 3. On submission, a confirmation dialog appears before generation.  
 4. The PDF is generated locally and downloaded. At the same time, the quote is archived server-side with a signature token valid for 30 days.  
@@ -168,7 +170,8 @@ billing-system/ (private)
 - Automatic PDF pagination  
 - Support for individual and business clients  
 - Automatic hiding of company identification fields for individual clients  
-- Optional professional insurance information
+- Optional professional insurance information  
+- Support for both services and sales of goods with automatic VAT legal notice selection
 
 ---
 
@@ -178,7 +181,7 @@ Server-side invoice generation interface. For each operation, two PDFs are produ
 
 **How it works:**  
 
-1. The user fills in the form: client details auto-filled via lookup, selection of the associated quote from the list, invoice lines loaded automatically upon quote selection, service date, optional deposit.
+1. The user fills in the form: client details automatically populated through lookup, operation type (service or sale of goods), client type (individual or business), professional insurance information, selection of the related quote, invoice lines automatically loaded from the selected quote, service date, and any applicable deposit.  
 2. A live preview of totals (excl. VAT / VAT / incl. VAT) is calculated in real time.  
 3. On submission, a confirmation dialog appears before generation.  
 4. The invoice PDF is generated and downloaded. At the same time, the documents are archived server-side for tracking and payment validation.  
