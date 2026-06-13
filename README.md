@@ -74,7 +74,11 @@ The system is designed to be deployed directly on the client's server, on a stan
 - Multi-user authentication with individual usernames and passwords  
 - Independent user sessions with secure login management  
 - International VAT handling with automatic legal notices based on client location (France / EU / non-EU), operation type (service or sale of goods), and issuer tax status  
-- Support for services and sales of goods with automatic adaptation of applicable VAT legal notices
+- Support for services and sales of goods with automatic adaptation of applicable VAT legal notices  
+- Business expense recording and tracking  
+- Expense attachments (PDF, JPG, PNG)  
+- Expense history with monthly and yearly filters  
+- CSV export of the expense journal
 
 ---
 
@@ -94,15 +98,18 @@ billing-system/ (private)
 │   ├── instant-bill.php              → Direct invoice generation entry point
 │   ├── payment-proof.php             → Paid invoice generation entry point
 │   ├── deposit-entry.php             → Entry point for deposit tracking
+│   ├── expenses-entry.php            → Expense management entry point
 │   │ 
 │   ├── quote-space.php               → Quote generation interface
 │   ├── billing-space.php             → Direct invoice generation interface
 │   ├── payment-check.php             → Interface used to mark an invoice as paid
 │   ├── payments.php                  → Payment and deposit tracking
+│   ├── expenses-check.php            → Interface permettant de suivre les dépenses
 │   ├── payments-close.php            → Monthly payment closing export
 │   ├── approval.php                  → Quote review and signature interface
 │   ├── archive-export.php            → ZIP export of archived invoices
 │   ├── revenue-export.php            → CSV export of the revenue ledger
+│   ├── expense-export.php            → CSV export of the expense journal
 │   │
 │   ├── index.php                     → PWA entry point and manifest loader
 │   ├── countries.php                 → ISO-based list of 249 countries
@@ -110,6 +117,7 @@ billing-system/ (private)
 │   ├── secure-access.php             → Secure PDF access via token
 │   ├── download-access.php           → Secure PDF invoice download
 │   ├── deposits.php                  → Deposit payment recording
+│   ├── attachment.php                → Expense attachment viewer
 │   ├── manifest.json                 → System PWA configuration
 │   └── archive-save.php              → Quote saving and archival system
 │
