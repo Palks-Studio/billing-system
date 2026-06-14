@@ -85,9 +85,9 @@ The system is designed to be deployed directly on the client's server, on a stan
 ## Project Structure
 
 ```
-billing-system/ (private)
+billing-system/
 │
-├── billing-public/ (public)
+├── billing-public/
 │   │  └── assets/
 │   │      ├── logo*                  → Company logo if provided
 │   │      ├── signature.png          → User signature used on quotes and invoices (PNG format)
