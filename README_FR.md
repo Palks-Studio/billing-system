@@ -84,9 +84,9 @@ Le système est conçu pour être déployé directement chez le client, sur un h
 ## Structure du projet
 
 ```
-billing-system/ (privé)
+billing-system/
 │
-├── billing-public/ (public)
+├── billing-public/
 │   │  └── assets/
 │   │      ├── logo*                  → Logo de l’entreprise si fourni
 │   │      ├── signature.png          → Signature de l’utilisateur utilisée sur les devis et factures (format PNG)
