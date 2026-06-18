@@ -62,6 +62,7 @@ The system is designed to be deployed directly on the client's server, on a stan
 - International support: automatic VAT legal notice based on client zone (FR / EU / non-EU)  
 - VAT forced to 0% for EU and non-EU clients, with appropriate legal notice  
 - 249 countries centralised in `countries.php` — ISO code in backend, full name in UI  
+- Intra-EU client VAT number format and consistency validation (country prefix, expected length), enforced both on the interface and on the server  
 - Country autocomplete without accents, displayed as full name, transmitted as ISO  
 - VAT column hidden in documents when no VAT applies  
 - `vat_zone` column in CSV revenue journal (values: `fr`, `eu`, `world`)  
@@ -310,7 +311,8 @@ Email sending module with attachment support, used across all features. No exter
 - HTTP response security policies (content type, caching, indexing)  
 - Internal interfaces are not indexed and not publicly exposed  
 - No external dependencies: all data remains under full control  
-- Multi-user authentication via dedicated user accounts
+- Multi-user authentication via dedicated user accounts  
+- Double validation of sensitive data (interface and server), including the intra-EU VAT number
 
 ---
 
