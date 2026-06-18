@@ -60,6 +60,7 @@ Le système est conçu pour être déployé directement chez le client, sur un h
 - Sécurité minimale : sessions sécurisées, tokens, anti-brute force  
 - Gestion internationale : mentions légales TVA automatiques selon la zone client (FR / UE / hors UE)  
 - TVA forcée à 0 % pour les clients UE et hors UE, avec mention légale adaptée  
+- Validation du format et de la cohérence du numéro de TVA intracommunautaire client (préfixe pays, longueur attendue), appliquée côté interface et côté serveur  
 - 249 pays centralisés dans `countries.php` — code ISO en backend, nom complet en interface  
 - Autocomplétion pays sans accents, affichage en nom complet, transmission en ISO  
 - Colonne TVA masquée dans les documents si aucune TVA applicable  
@@ -311,7 +312,8 @@ Module d’envoi d’emails avec gestion des pièces jointes, utilisé par l’e
 - Politique de sécurité des réponses HTTP (type, cache, indexation)  
 - Interfaces internes non indexées et non exposées publiquement  
 - Aucune dépendance à des services externes : toutes les données restent sous contrôle  
-- Authentification multi-utilisateurs via comptes dédiés
+- Authentification multi-utilisateurs via comptes dédiés  
+- Double validation des données (interface et serveur) sur les champs sensibles, dont le numéro de TVA intracommunautaire
 
 ---
 
