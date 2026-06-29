@@ -38,6 +38,8 @@ Billing System est une suite de quatre outils de facturation reliés entre eux, 
 
 Le système est conçu pour être déployé directement chez le client, sur un hébergement Apache standard avec PHP 8.x et Composer. Il ne nécessite ni base de données, ni service tiers, ni abonnement.
 
+Curieux de découvrir l'application complète ? La playlist de démonstration est disponible ici : [Voir la playlist complète de démonstration](https://www.youtube.com/watch?v=RhYBwVY5I6E&list=PLQHDbUAfp4HM)
+
 ---
 
 ## Fonctionnalités
