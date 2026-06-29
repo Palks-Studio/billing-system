@@ -39,6 +39,8 @@ Billing System is a suite of four interconnected billing tools accessible from a
 
 The system is designed to be deployed directly on the client's server, on a standard Apache hosting environment with PHP 8.x and Composer. It requires no database, no third-party service, and no subscription.
 
+Curious to see the full application? The complete demo playlist is available here: [Watch the Complete Demo Playlist](https://www.youtube.com/watch?v=gboIdyW5als&list=PLZEg9_eUFTGA)
+
 ---
 
 ## Features
