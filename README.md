@@ -31,7 +31,7 @@
 
 Complete, autonomous and bilingual (FR/EN) billing system deployable on any PHP/Apache hosting. No database. No SaaS dependency. Self-hosted with full ownership of your data.
 
-[![Invoicing without SaaS](https://img.shields.io/badge/Invoicing%20without%20SaaS-0095b1?style=flat)](https://palks-studio.com/en/invoicing-without-saas)
+[View the System](https://palks-studio.com/en/invoicing-without-saas)
 
 ---
 
