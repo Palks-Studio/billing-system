@@ -53,9 +53,10 @@ Curious to see the full application? The complete demo playlist is available her
 - Client auto-fill from archives (SIREN, SIRET, VAT, email, name)  
 - Structured archiving by client and period  
 - Secure sequential numbering (file lock)  
-- Monthly export of invoices (ZIP)  
-- Monthly export of revenue records (CSV)  
-- Yearly export of the revenue journal (CSV)  
+- Monthly invoice export (ZIP archive) from the interface  
+- Monthly or yearly revenue export (CSV) from the interface  
+- Monthly or yearly expense export (CSV) from the interface  
+- Monthly or yearly deposit export (CSV) from the interface  
 - Automatic email notifications at each stage (quote, invoice, settlement)  
 - Cross-module navigation bar  
 - Bilingual FR/EN interface with real-time language switch  
@@ -82,8 +83,7 @@ Curious to see the full application? The complete demo playlist is available her
 - Support for services and sales of goods with automatic adaptation of applicable VAT legal notices  
 - Business expense recording and tracking  
 - Expense attachments (PDF, JPG, PNG)  
-- Expense history with monthly and yearly filters  
-- CSV export of the expense journal
+- Expense history with monthly and yearly filters
 
 ---
 
@@ -115,6 +115,7 @@ billing-system/
 │   ├── archive-export.php            → ZIP export of archived invoices
 │   ├── revenue-export.php            → CSV export of the revenue ledger
 │   ├── expense-export.php            → CSV export of the expense journal
+│   ├── deposit-export.php            → CSV export of the deposit journal
 │   │
 │   ├── index.php                     → PWA entry point and manifest loader
 │   ├── countries.php                 → ISO-based list of 249 countries
@@ -239,7 +240,7 @@ Interface for tracking outstanding invoices and validating payments. Allows user
 - Safe write operations with file locking  
 - Protection against form resubmission  
 - Pending invoices counter indicator  
-- Annual CSV export of revenue
+- CSV export of revenue
 
 ---
 
