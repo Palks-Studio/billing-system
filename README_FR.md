@@ -53,8 +53,9 @@ Curieux de découvrir l'application complète ? La playlist de démonstration es
 - Archivage structuré par client et par période  
 - Numérotation séquentielle sécurisée (verrou fichier)  
 - Export mensuel des factures (archive ZIP) depuis l’interface  
-- Export mensuel des recettes (CSV) depuis l’interface  
-- Export annuel du journal des recettes (CSV)  
+- Export mensuel ou annuel des recettes (CSV) depuis l’interface  
+- Export mensuel ou annuel des dépenses (CSV) depuis l’interface  
+- Export mensuel ou annuel des acomptes (CSV) depuis l’interface  
 - Envoi email automatique à chaque étape (devis, facture, acquittement)  
 - Navigation entre les trois modules depuis une barre commune  
 - Interface bilingue FR/EN avec switch en temps réel  
@@ -81,8 +82,7 @@ Curieux de découvrir l'application complète ? La playlist de démonstration es
 - Support for services and sales of goods with automatic adaptation of applicable VAT legal notices  
 - Enregistrement et suivi des dépenses professionnelles  
 - Gestion des justificatifs (PDF, JPG, PNG)  
-- Historique des dépenses avec filtres mensuels et annuels  
-- Export CSV du journal des dépenses
+- Historique des dépenses avec filtres mensuels et annuels
 
 ---
 
@@ -114,6 +114,7 @@ billing-system/
 │   ├── archive-export.php            → Export ZIP des factures archivées
 │   ├── revenue-export.php            → Export CSV du journal des recettes
 │   ├── expense-export.php            → Export CSV du journal des dépenses
+│   ├── deposit-export.php            → Export CSV du journal des acomptes
 │   │
 │   ├── index.php                     → Point d’entrée PWA et chargement du manifest
 │   ├── countries.php                 → Liste ISO de 249 pays
@@ -238,7 +239,7 @@ Interface de suivi des factures en attente et de validation des paiements. Perme
 - Gestion sécurisée des écritures (verrouillage)  
 - Protection contre la double soumission des formulaires  
 - Indicateur du nombre de factures en attente  
-- Export annuel des recettes au format CSV
+- Export des recettes au format CSV
 
 ---
 
