@@ -43,6 +43,8 @@ The system is designed to be deployed directly on the client's server, on a stan
 
 Curious to see the full application? The complete demo playlist is available here: [Watch the Complete Demo Playlist](https://www.youtube.com/watch?v=gboIdyW5als&list=PLZEg9_eUFTGA)
 
+The engine also includes a secure update mechanism that allows regulatory compliance to be maintained over time while preserving a fully autonomous client-hosted installation.
+
 ---
 
 ## Features
@@ -83,7 +85,13 @@ Curious to see the full application? The complete demo playlist is available her
 - Support for services and sales of goods with automatic adaptation of applicable VAT legal notices  
 - Business expense recording and tracking  
 - Expense attachments (PDF, JPG, PNG)  
-- Expense history with monthly and yearly filters
+- Expense history with monthly and yearly filters  
+- Automatic Factur-X engine update system with integrated notifications across all interfaces  
+- Daily availability checks for new versions from the client installation  
+- Regulatory update installation after user approval  
+- Cryptographic verification of updates before installation  
+- Automatic backup before replacing engine components  
+- Targeted updates limited to files required for regulatory compliance
 
 ---
 
@@ -94,65 +102,109 @@ billing-system/
 │
 ├── billing-public/
 │   │  └── assets/
-│   │      ├── logo*                  → Company logo if provided
-│   │      ├── signature.png          → User signature used on quotes and invoices (PNG format)
-│   │      └── favicon*               → Optional favicon displayed in the browser tab
+│   │      ├── logo*                   → Company logo if provided
+│   │      ├── signature.png           → User signature used on quotes and invoices (PNG format)
+│   │      └── favicon*                → Optional favicon displayed in the browser tab
 │   │
-│   ├── quote-entry.php               → Quote generation entry point
-│   ├── billing-entry.php             → Invoice generation entry point
-│   ├── instant-bill.php              → Direct invoice generation entry point
-│   ├── payment-proof.php             → Paid invoice generation entry point
-│   ├── deposit-entry.php             → Entry point for deposit tracking
-│   ├── expenses-entry.php            → Expense management entry point
+│   ├── admin/
+│   │  └── update-management.php       → Update management page
+│   │
+│   ├── quote-entry.php                → Quote generation entry point
+│   ├── billing-entry.php              → Invoice generation entry point
+│   ├── instant-bill.php               → Direct invoice generation entry point
+│   ├── payment-proof.php              → Paid invoice generation entry point
+│   ├── deposit-entry.php              → Entry point for deposit tracking
+│   ├── expenses-entry.php             → Expense management entry point
 │   │ 
-│   ├── quote-space.php               → Quote generation interface
-│   ├── billing-space.php             → Direct invoice generation interface
-│   ├── payment-check.php             → Interface used to mark an invoice as paid
-│   ├── payments.php                  → Payment and deposit tracking
-│   ├── expenses-check.php            → Interface permettant de suivre les dépenses
-│   ├── payments-close.php            → Monthly payment closing export
-│   ├── approval.php                  → Quote review and signature interface
-│   ├── archive-export.php            → ZIP export of archived invoices
-│   ├── revenue-export.php            → CSV export of the revenue ledger
-│   ├── expense-export.php            → CSV export of the expense journal
-│   ├── deposit-export.php            → CSV export of the deposit journal
+│   ├── quote-space.php                → Quote generation interface
+│   ├── billing-space.php              → Direct invoice generation interface
+│   ├── payment-check.php              → Interface used to mark an invoice as paid
+│   ├── payments.php                   → Payment and deposit tracking
+│   ├── expenses-check.php             → Interface permettant de suivre les dépenses
+│   ├── payments-close.php             → Monthly payment closing export
+│   ├── approval.php                   → Quote review and signature interface
+│   ├── archive-export.php             → ZIP export of archived invoices
+│   ├── revenue-export.php             → CSV export of the revenue ledger
+│   ├── expense-export.php             → CSV export of the expense journal
+│   ├── deposit-export.php             → CSV export of the deposit journal
 │   │
-│   ├── index.php                     → PWA entry point and manifest loader
-│   ├── countries.php                 → ISO-based list of 249 countries
-│   ├── client-search.php             → Client lookup and autofill system
-│   ├── secure-access.php             → Secure PDF access via token
-│   ├── download-access.php           → Secure PDF invoice download
-│   ├── deposits.php                  → Deposit payment recording
-│   ├── attachment.php                → Expense attachment viewer
-│   ├── manifest.json                 → System PWA configuration
-│   └── archive-save.php              → Quote saving and archival system
+│   ├── index.php                      → PWA entry point and manifest loader
+│   ├── countries.php                  → ISO-based list of 249 countries
+│   ├── client-search.php              → Client lookup and autofill system
+│   ├── secure-access.php              → Secure PDF access via token
+│   ├── download-access.php            → Secure PDF invoice download
+│   ├── deposits.php                   → Deposit payment recording
+│   ├── attachment.php                 → Expense attachment viewer
+│   ├── manifest.json                  → System PWA configuration
+│   └── archive-save.php               → Quote saving and archival system
 │
-├── vendor/                           → Libraries used by the document generation engine
-├── templates/                        → HTML templates used for document rendering
-│   └── document-layout.php           → Document rendering template (PDF or preview)
+├── billing-updates/
+│   │
+│   ├── releases/                      → Published engine versions
+│   │   ├── engine-release-1.0.0.zip   → Complete release archive
+│   │   ├── engine-release-1.0.0.sig   → Cryptographic signature of the release
+│   │   ├── engine-release-1.0.1.zip   → Complete release archive
+│   │   └── engine-release-1.0.1.sig   → Cryptographic signature of the release
+│   │
+│   ├── api/
+│   │   └── version-endpoint.php       → Client endpoint used to retrieve the latest version
+│   │
+│   ├── manifests/
+│   │   └── release-manifest.json      → Manifest containing available version, archive and signature
+│   │
+│   ├── private/
+│   │   ├── server-config.php          → Private release server configuration
+│   │   ├── signing-private.key        → Private key used to sign releases
+│   │   └── signing-public.key         → Public key used to verify release signatures
+│   │
+│   ├── source/
+│   │   └── engine-source/             → Engine source code used to create releases
+│   │       ├── xml-handler.py         → XML processing script (automatically updated)
+│   │       ├── engine-module.py       → Engine module (automatically updated)
+│   │       └── document-generator.php → Factur-X document generator (automatically updated)
+│   │
+│   └── tools/
+│       ├── release-builder.php        → Automatic creation of release archives and manifests
+│       └── release-signer.php         → Cryptographic signing of releases
 │
-├── system-config.php                 → Central issuer and banking configuration
-├── auth.php                          → User authentication management
-├── facturx-builder.php               → Factur-X XML generation
-├── facturx-injector.py               → Factur-X XML injection into the PDF
-├── mail-service.php                  → Internal email delivery script with attachments
-├── document-engine.php               → Main engine: generation logic, calculations and archiving
-├── LICENCE.md                        → Project license
+├── vendor/                            → Libraries used by the document generation engine
+├── templates/                         → HTML templates used for document rendering
+│   └── document-layout.php            → Document rendering template (PDF or preview)
 │
-├── contracts/                        → Archive of signed and unsigned quotes
-├── counters/                         → Document numbering counters (quotes and invoices)
-├── logs/                             → System logs (optional)
+├── system-config.php                  → Central issuer and banking configuration
+├── auth.php                           → User authentication management
+├── facturx-builder.php                → Factur-X XML generation
+├── facturx-injector.py                → Factur-X XML injection into the PDF
+├── mail-service.php                   → Internal email delivery script with attachments
+├── document-engine.php                → Main engine: generation logic, calculations and archiving
+├── LICENCE.md                         → Project license
+│
+├── contracts/                         → Archive of signed and unsigned quotes
+├── counters/                          → Document numbering counters (quotes and invoices)
+├── logs/                              → System logs (optional)
 ├── data/
-│   ├── pending-bills/                → Archive of unpaid invoices
-│   ├── staged-payments/              → Pre-generated paid invoices (awaiting payment)
-│   ├── paid-bills/                   → Archived paid invoices
-│   ├── temp-facturx/                 → Temporary Factur-X files
-│   └── revenue-ledger/               → Revenue ledger (CSV)
+│   ├── pending-bills/                 → Archive of unpaid invoices
+│   ├── staged-payments/               → Pre-generated paid invoices (awaiting payment)
+│   ├── paid-bills/                    → Archived paid invoices
+│   ├── temp-facturx/                  → Temporary Factur-X files
+│   └── revenue-ledger/                → Revenue ledger (CSV)
+│
+├── updater/
+│   ├── update-check-module.php        → Checks for available updates
+│   ├── update-deployment-module.php   → Secure installation of updates
+│   ├── update-alert-module.php        → Update notification management
+│   ├── version-cache.json             → Version check cache
+│   ├── verification.key               → Public key used to verify signatures
+│   ├── installation-state.json        → Currently installed version
+│   └── operations.log                 → Update operation log
+│
+├── temp/
+│   └── updates/                       → Temporary directory used during installation
 │
 └── docs/
-    ├── USER_GUIDE.md                 → User guide
-    ├── OVERVIEW.md                   → Project and workflow overview
-    └── README.md                     → Installation and usage documentation (client version)
+    ├── USER_GUIDE.md                  → User guide
+    ├── OVERVIEW.md                    → Project and workflow overview
+    └── README.md                      → Installation and usage documentation (client version)
 ```
 
 
@@ -301,6 +353,31 @@ Token-based access layer for serving PDF files without exposing their physical l
 #### Internal mailer
 
 Email sending module with attachment support, used across all features. No external SMTP service required.
+
+---
+
+## Engine Update System
+
+The system includes an automatic update mechanism designed to keep the Factur-X engine compliant with regulatory changes over time.
+
+Each client installation periodically checks the Palks Studio update server for the availability of a new version.
+
+When a new version is available:
+
+- a notification appears across all system interfaces  
+- the user can view the update information  
+- the user can start the installation directly from the notification
+
+The update process:
+
+- downloads only the required engine components  
+- verifies the cryptographic signature of the release  
+- creates a backup before modification  
+- replaces only the necessary files  
+- keeps client data and local configurations unchanged  
+- updates the installed version
+
+This mechanism ensures continuous regulatory compliance of the engine without requiring technical intervention on the client server.
 
 ---
 
