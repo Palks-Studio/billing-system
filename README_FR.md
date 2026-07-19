@@ -42,6 +42,8 @@ Le système est conçu pour être déployé directement chez le client, sur un h
 
 Curieux de découvrir l'application complète ? La playlist de démonstration est disponible ici : [Voir la playlist complète de démonstration](https://www.youtube.com/watch?v=RhYBwVY5I6E&list=PLQHDbUAfp4HM)
 
+Le moteur intègre également un système de mise à jour sécurisé permettant de maintenir la conformité réglementaire dans le temps tout en conservant une installation autonome chez le client.
+
 ---
 
 ## Fonctionnalités
@@ -82,7 +84,13 @@ Curieux de découvrir l'application complète ? La playlist de démonstration es
 - Support for services and sales of goods with automatic adaptation of applicable VAT legal notices  
 - Enregistrement et suivi des dépenses professionnelles  
 - Gestion des justificatifs (PDF, JPG, PNG)  
-- Historique des dépenses avec filtres mensuels et annuels
+- Historique des dépenses avec filtres mensuels et annuels  
+- Système de mise à jour automatique du moteur Factur-X avec notification intégrée dans toutes les interfaces  
+- Vérification quotidienne de la disponibilité des nouvelles versions depuis l'installation cliente  
+- Installation des mises à jour réglementaires après validation utilisateur  
+- Vérification cryptographique des mises à jour avant installation  
+- Sauvegarde automatique avant remplacement des composants du moteur  
+- Mise à jour ciblée uniquement des fichiers nécessaires à la conformité réglementaire
 
 ---
 
@@ -93,65 +101,109 @@ billing-system/
 │
 ├── billing-public/
 │   │  └── assets/
-│   │      ├── logo*                  → Logo de l’entreprise si fourni
-│   │      ├── signature.png          → Signature de l’utilisateur utilisée sur les devis et factures (format PNG)
-│   │      └── favicon*               → Favicon optionnel affiché dans l’onglet du navigateur
+│   │      ├── logo*                   → Logo de l’entreprise si fourni
+│   │      ├── signature.png           → Signature de l’utilisateur utilisée sur les devis et factures (format PNG)
+│   │      └── favicon*                → Favicon optionnel affiché dans l’onglet du navigateur
+│   ├── admin/
+│   │  └── system-maintenance.php      → Page de gestion des mises à jour
 │   │
-│   ├── quote-entry.php               → Point d’entrée de génération de devis
-│   ├── billing-entry.php             → Point d’entrée de génération de facture
-│   ├── instant-bill.php              → Point d’entrée de génération directe de facture
-│   ├── payment-proof.php             → Point d’entrée de génération de facture acquittée
-│   ├── deposit-entry.php             → Point d’entrée du suivi d'acomptes
-│   ├── expenses-entry.php            → Point d’entrée de gestion des dépenses
+│   ├── quote-entry.php                → Point d’entrée de génération de devis
+│   ├── billing-entry.php              → Point d’entrée de génération de facture
+│   ├── instant-bill.php               → Point d’entrée de génération directe de facture
+│   ├── payment-proof.php              → Point d’entrée de génération de facture acquittée
+│   ├── deposit-entry.php              → Point d’entrée du suivi d'acomptes
+│   ├── expenses-entry.php             → Point d’entrée de gestion des dépenses
 │   │ 
-│   ├── quote-space.php               → Interface de génération des devis
-│   ├── billing-space.php             → Interface de génération directe de facture
-│   ├── payment-check.php             → Interface permettant de marquer une facture comme payée
-│   ├── expenses-check.php            → Interface permettant de suivre les dépenses
-│   ├── payments.php                  → Interface permettant de suivre les acomptes
-│   ├── payments-close.php            → Clôture mensuelle des acomptes payés
-│   ├── approval.php                  → Interface de consultation et signature des devis
-│   ├── archive-export.php            → Export ZIP des factures archivées
-│   ├── revenue-export.php            → Export CSV du journal des recettes
-│   ├── expense-export.php            → Export CSV du journal des dépenses
-│   ├── deposit-export.php            → Export CSV du journal des acomptes
+│   ├── quote-space.php                → Interface de génération des devis
+│   ├── billing-space.php              → Interface de génération directe de facture
+│   ├── payment-check.php              → Interface permettant de marquer une facture comme payée
+│   ├── expenses-check.php             → Interface permettant de suivre les dépenses
+│   ├── payments.php                   → Interface permettant de suivre les acomptes
+│   ├── payments-close.php             → Clôture mensuelle des acomptes payés
+│   ├── approval.php                   → Interface de consultation et signature des devis
+│   ├── archive-export.php             → Export ZIP des factures archivées
+│   ├── revenue-export.php             → Export CSV du journal des recettes
+│   ├── expense-export.php             → Export CSV du journal des dépenses
+│   ├── deposit-export.php             → Export CSV du journal des acomptes
 │   │
-│   ├── index.php                     → Point d’entrée PWA et chargement du manifest
-│   ├── countries.php                 → Liste ISO de 249 pays
-│   ├── client-search.php             → Recherche et auto-remplissage des informations client
-│   ├── secure-access.php             → Accès sécurisé aux PDF via token
-│   ├── download-access.php           → Téléchargement sécurisé des factures PDF
-│   ├── deposits.php                  → Enregistrement des acomptes reçus
-│   ├── attachment.php                → Visualisation des justificatifs
-│   ├── manifest.json                 → Configuration PWA du système
-│   └── archive-save.php              → Sauvegarde et archivage des devis générés
+│   ├── index.php                      → Point d’entrée PWA et chargement du manifest
+│   ├── countries.php                  → Liste ISO de 249 pays
+│   ├── client-search.php              → Recherche et auto-remplissage des informations client
+│   ├── secure-access.php              → Accès sécurisé aux PDF via token
+│   ├── download-access.php            → Téléchargement sécurisé des factures PDF
+│   ├── deposits.php                   → Enregistrement des acomptes reçus
+│   ├── attachment.php                 → Visualisation des justificatifs
+│   ├── manifest.json                  → Configuration PWA du système
+│   └── archive-save.php               → Sauvegarde et archivage des devis générés
 │
-├── vendor/                           → Bibliothèques utilisées par le moteur de génération des documents
-├── templates/                        → Modèles HTML utilisés pour le rendu des documents
-│   └── document-layout.php           → Template de rendu du document (PDF ou aperçu)
+├── billing-updates/
+│   │
+│   ├── releases/                      → Versions publiées du moteur
+│   │   ├── engine-release-1.0.0.zip   → Archive complète de la release
+│   │   ├── engine-release-1.0.0.sig   → Signature cryptographique de la release
+│   │   ├── engine-release-1.0.1.zip   → Archive complète de la release
+│   │   └── engine-release-1.0.1.sig   → Signature cryptographique de la release
+│   │
+│   ├── api/
+│   │   └── version-endpoint.php       → Point d'accès client pour récupérer la dernière version
+│   │
+│   ├── manifests/
+│   │   └── release-manifest.json      → Manifest contenant la version, l'archive et la signature disponibles
+│   │
+│   ├── private/
+│   │   ├── server-config.php          → Configuration privée du serveur de releases
+│   │   ├── signing-private.key        → Clé privée utilisée pour signer les releases
+│   │   └── signing-public.key         → Clé publique utilisée pour vérifier les signatures des releases
+│   │
+│   ├── source/
+│   │   └── engine-source/             → Code source du moteur utilisé pour créer les releases
+│   │       ├── xml-handler.py         → Script de traitement XML (mis à jour automatiquement)
+│   │       ├── engine-module.py       → Module moteur (mis à jour automatiquement)
+│   │       └── document-generator.php → Générateur de documents Factur-X (mis à jour automatiquement)
+│   │
+│   └── tools/
+│       ├── release-builder.php        → Création automatique des archives de release et des manifests
+│       └── release-signer.php         → Signature cryptographique des releases
 │
-├── system-config.php                 → Configuration centrale de l’émetteur et des coordonnées bancaires
-├── auth.php                          → Gestion des utilisateurs autorisés
-├── facturx-builder.php               → Génération du XML Factur-X
-├── facturx-injector.py               → Injection du XML Factur-X dans le PDF
-├── mail-service.php                  → Script interne d’envoi d’emails avec pièces jointes
-├── document-engine.php               → Moteur principal : logique de génération, calculs et archivage
-├── LICENCE.md                        → Licence du projet
+├── vendor/                            → Bibliothèques utilisées par le moteur de génération des documents
+├── templates/                         → Modèles HTML utilisés pour le rendu des documents
+│   └── document-layout.php            → Template de rendu du document (PDF ou aperçu)
 │
-├── contracts/                        → Archivage des devis signés et non signés
-├── counters/                         → Compteurs de numérotation (devis et factures)
-├── logs/                             → Journaux système (optionnel)
+├── system-config.php                  → Configuration centrale de l’émetteur et des coordonnées bancaires
+├── auth.php                           → Gestion des utilisateurs autorisés
+├── facturx-builder.php                → Génération du XML Factur-X
+├── facturx-injector.py                → Injection du XML Factur-X dans le PDF
+├── mail-service.php                   → Script interne d’envoi d’emails avec pièces jointes
+├── document-engine.php                → Moteur principal : logique de génération, calculs et archivage
+├── LICENCE.md                         → Licence du projet
+│
+├── contracts/                         → Archivage des devis signés et non signés
+├── counters/                          → Compteurs de numérotation (devis et factures)
+├── logs/                              → Journaux système (optionnel)
 ├── data/
-│   ├── pending-bills/                → Archivage des factures à régler
-│   ├── staged-payments/              → Factures acquittées pré-générées (en attente de paiement)
-│   ├── paid-bills/                   → Factures acquittées archivées
-│   ├── temp-facturx/                 → Fichiers temporaires Factur-X
-│   └── revenue-ledger/               → Journal des recettes (CSV)
+│   ├── pending-bills/                 → Archivage des factures à régler
+│   ├── staged-payments/               → Factures acquittées pré-générées (en attente de paiement)
+│   ├── paid-bills/                    → Factures acquittées archivées
+│   ├── temp-facturx/                  → Fichiers temporaires Factur-X
+│   └── revenue-ledger/                → Journal des recettes (CSV)
+│
+├── updater/
+│   ├── update-check-module.php        → Vérification des mises à jour disponibles
+│   ├── update-deployment-module.php   → Installation sécurisée des mises à jour
+│   ├── update-alert-module.php        → Gestion des notifications de mise à jour
+│   ├── version-cache.json             → Cache des vérifications de version
+│   ├── verification.key               → Clé publique de vérification des signatures
+│   ├── installation-state.json        → Version actuellement installée
+│   └── operations.log                 → Journal des opérations de mise à jour
+│
+├── temp/
+│   └── updates/                       → Zone temporaire utilisée pendant l'installation
 │
 └── docs/
-    ├── GUIDE_UTILISATEUR.md          → Guide utilisateur
-    ├── OVERVIEW_FR.md                → Vue d’ensemble du projet et de son fonctionnement
-    └── README_FR.md                  → Documentation d’installation et d’utilisation (version client)
+    ├── GUIDE_UTILISATEUR.md           → Guide utilisateur
+    ├── UPDATE_SYSTEM_FR.md            → Documentation du moteur de mise à jour automatique
+    ├── OVERVIEW_FR.md                 → Vue d’ensemble du projet et de son fonctionnement
+    └── README_FR.md                   → Documentation d’installation et d’utilisation (version client)
 ```
 
 
@@ -302,6 +354,31 @@ Couche d’accès basée sur un jeton permettant de servir un PDF sans exposer s
 #### Mailer interne
 
 Module d’envoi d’emails avec gestion des pièces jointes, utilisé par l’ensemble du système. Aucune dépendance à un service SMTP externe.
+
+---
+
+## Système de mise à jour du moteur
+
+Le système intègre un mécanisme de mise à jour automatique permettant de maintenir le moteur Factur-X conforme aux évolutions réglementaires.
+
+Chaque installation cliente vérifie périodiquement la disponibilité d'une nouvelle version auprès du serveur de mise à jour Palks Studio.
+
+Lorsqu'une nouvelle version est disponible :  
+
+- une notification apparaît dans l'ensemble des interfaces du système  
+- l'utilisateur peut consulter les informations de la mise à jour  
+- l'utilisateur peut lancer l'installation directement depuis l'interface
+
+Le processus de mise à jour :
+
+- télécharge uniquement les composants du moteur concernés  
+- vérifie la signature cryptographique de la release  
+- crée une sauvegarde avant modification  
+- remplace uniquement les fichiers nécessaires  
+- conserve les données clients et configurations locales  
+- met à jour la version installée
+
+Ce mécanisme permet d'assurer la continuité de conformité réglementaire du moteur sans intervention technique sur le serveur client.
 
 ---
 
