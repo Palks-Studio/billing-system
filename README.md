@@ -160,6 +160,7 @@ billing-system/
 │   ├── source/
 │   │   └── engine-source/             → Engine source code used to create releases
 │   │       ├── xml-handler.py         → XML processing script (automatically updated)
+│   │       ├── invoice.php            → Invoicing engine module (updated automatically)
 │   │       ├── engine-module.py       → Engine module (automatically updated)
 │   │       └── document-generator.php → Factur-X document generator (automatically updated)
 │   │
