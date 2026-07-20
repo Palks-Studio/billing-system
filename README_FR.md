@@ -158,6 +158,7 @@ billing-system/
 │   ├── source/
 │   │   └── engine-source/             → Code source du moteur utilisé pour créer les releases
 │   │       ├── xml-handler.py         → Script de traitement XML (mis à jour automatiquement)
+│   │       ├── invoice.php            → Module moteur de facturation (mis à jour automatiquement)
 │   │       ├── engine-module.py       → Module moteur (mis à jour automatiquement)
 │   │       └── document-generator.php → Générateur de documents Factur-X (mis à jour automatiquement)
 │   │
