@@ -172,6 +172,7 @@ billing-system/
 ├── templates/                         → HTML templates used for document rendering
 │   └── document-layout.php            → Document rendering template (PDF or preview)
 │
+├── pa.php                             → PA-specific transmission connector
 ├── system-config.php                  → Central issuer and banking configuration
 ├── auth.php                           → User authentication management
 ├── facturx-builder.php                → Factur-X XML generation
@@ -211,7 +212,7 @@ billing-system/
 
 ---
 
-## The Four Modules
+## The Five Modules
 
 ### 1. Quote generator
 
@@ -354,6 +355,18 @@ Token-based access layer for serving PDF files without exposing their physical l
 #### Internal mailer
 
 Email sending module with attachment support, used across all features. No external SMTP service required.
+
+#### Approved Platform Transmission
+
+The engine includes invoice routing compatible with transmission to an Approved Platform (PA).
+
+The routing behavior depends on the installation configuration and the client type:
+
+- PA disabled: the invoice is sent to the client by email  
+- PA enabled + professional client (B2B): transmission to the PA only  
+- PA enabled + individual client (B2C): the invoice is sent to the client by email and transmitted to the PA
+
+The PA connector and its configuration remain independent from the main engine, allowing engine components to be updated without replacing the PA integration specific to each installation.
 
 ---
 
