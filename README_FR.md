@@ -170,6 +170,7 @@ billing-system/
 ├── templates/                         → Modèles HTML utilisés pour le rendu des documents
 │   └── document-layout.php            → Template de rendu du document (PDF ou aperçu)
 │
+├── pa.php                             → Connecteur de transmission propre à la PA configurée
 ├── system-config.php                  → Configuration centrale de l’émetteur et des coordonnées bancaires
 ├── auth.php                           → Gestion des utilisateurs autorisés
 ├── facturx-builder.php                → Génération du XML Factur-X
@@ -210,7 +211,7 @@ billing-system/
 
 ---
 
-## Les quatre modules
+## Les cinq modules
 
 ### 1. Générateur de devis
 
@@ -355,6 +356,18 @@ Couche d’accès basée sur un jeton permettant de servir un PDF sans exposer s
 #### Mailer interne
 
 Module d’envoi d’emails avec gestion des pièces jointes, utilisé par l’ensemble du système. Aucune dépendance à un service SMTP externe.
+
+#### Transmission Plateforme Agréée
+
+Le moteur intègre un routage des factures compatible avec une transmission vers une Plateforme Agréée (PA).
+
+Le comportement dépend de la configuration de l'installation et du type de client :
+
+- PA désactivée : envoi de la facture au client par email  
+- PA activée + client professionnel (B2B) : transmission vers la PA uniquement  
+- PA activée + client particulier (B2C) : envoi au client par email et transmission vers la PA
+
+Le connecteur PA et sa configuration restent indépendants du moteur principal, ce qui permet de mettre à jour les composants du moteur sans remplacer l'intégration PA propre à chaque installation.
 
 ---
 
