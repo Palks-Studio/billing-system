@@ -97,9 +97,9 @@ Le moteur intègre également un système de mise à jour sécurisé permettant 
 ## Structure du projet
 
 ```
-billing-system/
+private/
 │
-├── billing-public/
+├── web/
 │   │  └── assets/
 │   │      ├── logo*                   → Logo de l’entreprise si fourni
 │   │      ├── signature.png           → Signature de l’utilisateur utilisée sur les devis et factures (format PNG)
@@ -136,7 +136,7 @@ billing-system/
 │   ├── manifest.json                  → Configuration PWA du système
 │   └── archive-save.php               → Sauvegarde et archivage des devis générés
 │
-├── billing-updates/
+├── update-server/
 │   │
 │   ├── releases/                      → Versions publiées du moteur
 │   │   ├── engine-release-1.0.0.zip   → Archive complète de la release
@@ -166,7 +166,7 @@ billing-system/
 │       ├── release-builder.php        → Création automatique des archives de release et des manifests
 │       └── release-signer.php         → Signature cryptographique des releases
 │
-├── vendor/                            → Bibliothèques utilisées par le moteur de génération des documents
+├── dependencies/                      → Bibliothèques utilisées par le moteur de génération des documents
 ├── templates/                         → Modèles HTML utilisés pour le rendu des documents
 │   └── document-layout.php            → Template de rendu du document (PDF ou aperçu)
 │
