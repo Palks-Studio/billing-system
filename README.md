@@ -98,9 +98,9 @@ The engine also includes a secure update mechanism that allows regulatory compli
 ## Project Structure
 
 ```
-billing-system/
+private/
 │
-├── billing-public/
+├── web/
 │   │  └── assets/
 │   │      ├── logo*                   → Company logo if provided
 │   │      ├── signature.png           → User signature used on quotes and invoices (PNG format)
@@ -138,7 +138,7 @@ billing-system/
 │   ├── manifest.json                  → System PWA configuration
 │   └── archive-save.php               → Quote saving and archival system
 │
-├── billing-updates/
+├── update-server/
 │   │
 │   ├── releases/                      → Published engine versions
 │   │   ├── engine-release-1.0.0.zip   → Complete release archive
@@ -168,7 +168,7 @@ billing-system/
 │       ├── release-builder.php        → Automatic creation of release archives and manifests
 │       └── release-signer.php         → Cryptographic signing of releases
 │
-├── vendor/                            → Libraries used by the document generation engine
+├── dependencies/                      → Libraries used by the document generation engine
 ├── templates/                         → HTML templates used for document rendering
 │   └── document-layout.php            → Document rendering template (PDF or preview)
 │
