@@ -101,10 +101,6 @@ The engine also includes a secure update mechanism that allows regulatory compli
 private/
 │
 ├── web/
-│   │  └── assets/
-│   │      ├── logo*                   → Company logo if provided
-│   │      ├── signature.png           → User signature used on quotes and invoices (PNG format)
-│   │      └── favicon*                → Optional favicon displayed in the browser tab
 │   │
 │   ├── admin/
 │   │  └── update-management.php       → Update management page
@@ -168,6 +164,11 @@ private/
 │       ├── release-builder.php        → Automatic creation of release archives and manifests
 │       └── release-signer.php         → Cryptographic signing of releases
 │
+├── assets/
+│   ├── logo*                             → Company logo if provided
+│   ├── signature.png                     → User signature used on quotes and invoices (PNG format)
+│   └── favicon*                          → Optional favicon displayed in the browser tab
+│
 ├── dependencies/                      → Libraries used by the document generation engine
 ├── templates/                         → HTML templates used for document rendering
 │   └── document-layout.php            → Document rendering template (PDF or preview)
@@ -179,7 +180,7 @@ private/
 ├── facturx-injector.py                → Factur-X XML injection into the PDF
 ├── mail-service.php                   → Internal email delivery script with attachments
 ├── document-engine.php                → Main engine: generation logic, calculations and archiving
-├── LICENCE.md                         → Project license
+├── LICENSE.md                         → Project license
 │
 ├── contracts/                         → Archive of signed and unsigned quotes
 ├── counters/                          → Document numbering counters (quotes and invoices)
@@ -204,9 +205,16 @@ private/
 │   └── updates/                       → Temporary directory used during installation
 │
 └── docs/
-    ├── USER_GUIDE.md                  → User guide
-    ├── OVERVIEW.md                    → Project and workflow overview
-    └── README.md                      → Installation and usage documentation (client version)
+    ├── USER_GUIDE_FR.md                  → User guide (FR)
+    ├── USER_GUIDE.md                     → User guide (EN)
+    ├── USER_GUIDE_FR.pdf                 → User guide (FR)
+    ├── USER_GUIDE.pdf                    → User guide (EN)
+    ├── UPDATE_SYSTEM_FR.md               → Automatic update system documentation (FR)
+    ├── UPDATE_SYSTEM.md                  → Automatic update system documentation (EN)
+    ├── OVERVIEW_FR.md                    → Project overview and system operation (FR)
+    ├── OVERVIEW.md                       → Project overview and system operation (EN)
+    ├── README_FR.md                      → Installation and usage documentation (FR)
+    └── README.md                         → Installation and usage documentation (EN)
 ```
 
 
