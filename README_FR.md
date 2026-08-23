@@ -100,10 +100,6 @@ Le moteur intègre également un système de mise à jour sécurisé permettant 
 private/
 │
 ├── web/
-│   │  └── assets/
-│   │      ├── logo*                   → Logo de l’entreprise si fourni
-│   │      ├── signature.png           → Signature de l’utilisateur utilisée sur les devis et factures (format PNG)
-│   │      └── favicon*                → Favicon optionnel affiché dans l’onglet du navigateur
 │   ├── admin/
 │   │  └── system-maintenance.php      → Page de gestion des mises à jour
 │   │
@@ -166,6 +162,11 @@ private/
 │       ├── release-builder.php        → Création automatique des archives de release et des manifests
 │       └── release-signer.php         → Signature cryptographique des releases
 │
+├── assets/
+│   ├── logo*                          → Logo de l’entreprise si fourni
+│   ├── signature.png                  → Signature de l’utilisateur utilisée sur les devis et factures (format PNG)
+│   └── favicon*                       → Favicon optionnel affiché dans l’onglet du navigateur
+│
 ├── dependencies/                      → Bibliothèques utilisées par le moteur de génération des documents
 ├── templates/                         → Modèles HTML utilisés pour le rendu des documents
 │   └── document-layout.php            → Template de rendu du document (PDF ou aperçu)
@@ -202,10 +203,16 @@ private/
 │   └── updates/                       → Zone temporaire utilisée pendant l'installation
 │
 └── docs/
-    ├── GUIDE_UTILISATEUR.md           → Guide utilisateur
-    ├── UPDATE_SYSTEM_FR.md            → Documentation du moteur de mise à jour automatique
-    ├── OVERVIEW_FR.md                 → Vue d’ensemble du projet et de son fonctionnement
-    └── README_FR.md                   → Documentation d’installation et d’utilisation (version client)
+    ├── USER_GUIDE_FR.md                  → Guide utilisateur (FR)
+    ├── USER_GUIDE_FR.md                  → Guide utilisateur (EN)
+    ├── USER_GUIDE_FR.pdf                 → Guide utilisateur (FR)
+    ├── USER_GUIDE_FR.pdf                 → Guide utilisateur (EN)
+    ├── UPDATE_SYSTEM_FR.md               → Documentation du moteur de mise à jour automatique (FR)
+    ├── UPDATE_SYSTEM.md                  → Documentation du moteur de mise à jour automatique (EN)
+    ├── OVERVIEW_FR.md                    → Vue d’ensemble du projet et de son fonctionnement (FR)
+    ├── OVERVIEW.md                       → Vue d’ensemble du projet et de son fonctionnement (EN)
+    ├── README_FR.md                      → Documentation d’installation et d’utilisation (FR)
+    └── README.md                         → Documentation d’installation et d’utilisation (EN)
 ```
 
 
