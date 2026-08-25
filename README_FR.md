@@ -203,16 +203,16 @@ private/
 │   └── updates/                       → Zone temporaire utilisée pendant l'installation
 │
 └── docs/
-    ├── USER_GUIDE_FR.md                  → Guide utilisateur (FR)
-    ├── USER_GUIDE_FR.md                  → Guide utilisateur (EN)
-    ├── USER_GUIDE_FR.pdf                 → Guide utilisateur (FR)
-    ├── USER_GUIDE_FR.pdf                 → Guide utilisateur (EN)
-    ├── UPDATE_SYSTEM_FR.md               → Documentation du moteur de mise à jour automatique (FR)
-    ├── UPDATE_SYSTEM.md                  → Documentation du moteur de mise à jour automatique (EN)
-    ├── OVERVIEW_FR.md                    → Vue d’ensemble du projet et de son fonctionnement (FR)
-    ├── OVERVIEW.md                       → Vue d’ensemble du projet et de son fonctionnement (EN)
-    ├── README_FR.md                      → Documentation d’installation et d’utilisation (FR)
-    └── README.md                         → Documentation d’installation et d’utilisation (EN)
+    ├── USER_GUIDE_FR.md               → Guide utilisateur (FR)
+    ├── USER_GUIDE_FR.md               → Guide utilisateur (EN)
+    ├── USER_GUIDE_FR.pdf              → Guide utilisateur (FR)
+    ├── USER_GUIDE_FR.pdf              → Guide utilisateur (EN)
+    ├── UPDATE_SYSTEM_FR.md            → Documentation du moteur de mise à jour automatique (FR)
+    ├── UPDATE_SYSTEM.md               → Documentation du moteur de mise à jour automatique (EN)
+    ├── OVERVIEW_FR.md                 → Vue d’ensemble du projet et de son fonctionnement (FR)
+    ├── OVERVIEW.md                    → Vue d’ensemble du projet et de son fonctionnement (EN)
+    ├── README_FR.md                   → Documentation d’installation et d’utilisation (FR)
+    └── README.md                      → Documentation d’installation et d’utilisation (EN)
 ```
 
 
