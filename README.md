@@ -165,9 +165,9 @@ private/
 │       └── release-signer.php         → Cryptographic signing of releases
 │
 ├── assets/
-│   ├── logo*                             → Company logo if provided
-│   ├── signature.png                     → User signature used on quotes and invoices (PNG format)
-│   └── favicon*                          → Optional favicon displayed in the browser tab
+│   ├── logo*                          → Company logo if provided
+│   ├── signature.png                  → User signature used on quotes and invoices (PNG format)
+│   └── favicon*                       → Optional favicon displayed in the browser tab
 │
 ├── dependencies/                      → Libraries used by the document generation engine
 ├── templates/                         → HTML templates used for document rendering
@@ -205,16 +205,16 @@ private/
 │   └── updates/                       → Temporary directory used during installation
 │
 └── docs/
-    ├── USER_GUIDE_FR.md                  → User guide (FR)
-    ├── USER_GUIDE.md                     → User guide (EN)
-    ├── USER_GUIDE_FR.pdf                 → User guide (FR)
-    ├── USER_GUIDE.pdf                    → User guide (EN)
-    ├── UPDATE_SYSTEM_FR.md               → Automatic update system documentation (FR)
-    ├── UPDATE_SYSTEM.md                  → Automatic update system documentation (EN)
-    ├── OVERVIEW_FR.md                    → Project overview and system operation (FR)
-    ├── OVERVIEW.md                       → Project overview and system operation (EN)
-    ├── README_FR.md                      → Installation and usage documentation (FR)
-    └── README.md                         → Installation and usage documentation (EN)
+    ├── USER_GUIDE_FR.md               → User guide (FR)
+    ├── USER_GUIDE.md                  → User guide (EN)
+    ├── USER_GUIDE_FR.pdf              → User guide (FR)
+    ├── USER_GUIDE.pdf                 → User guide (EN)
+    ├── UPDATE_SYSTEM_FR.md            → Automatic update system documentation (FR)
+    ├── UPDATE_SYSTEM.md               → Automatic update system documentation (EN)
+    ├── OVERVIEW_FR.md                 → Project overview and system operation (FR)
+    ├── OVERVIEW.md                    → Project overview and system operation (EN)
+    ├── README_FR.md                   → Installation and usage documentation (FR)
+    └── README.md                      → Installation and usage documentation (EN)
 ```
 
 
