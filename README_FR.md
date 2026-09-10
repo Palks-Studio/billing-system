@@ -30,8 +30,6 @@
 
 Système de facturation complet, autonome et bilingue (FR/EN), installable sur tout hébergement PHP/Apache. Aucune base de données. Aucune dépendance SaaS. Hébergement autonome avec contrôle total des données.
 
-[Voir le système](https://palks-studio.com/fr/facturation-sans-saas)
-
 ---
 
 ## Présentation générale
