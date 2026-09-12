@@ -20,6 +20,16 @@
 
 # Billing System
 
+> 🇺🇸 **Vous êtes une entreprise basée aux États-Unis ?**
+>
+> Ce dépôt présente la version européenne du Billing System.
+>
+> Une version dédiée aux **États-Unis** est également disponible, sans Factur-X ni exigences européennes de facturation électronique. Elle reprend le même système de facturation auto-hébergé, avec une **gestion manuelle de la fiscalité** permettant d'adapter les taxes à la situation de l'entreprise.
+>
+> La version US prend en charge les **prestations de services et les ventes de biens**, sans dépendance SaaS et avec hébergement sur votre propre infrastructure.
+>
+> [Découvrir la version US et les prestations proposées](https://palks-studio.com/en/invoicing-without-saas)
+
 > ⚠️ Ce dépôt présente le projet et sa documentation technique.  
 > La version de production n’est pas distribuée publiquement.
 
