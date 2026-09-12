@@ -22,6 +22,16 @@
 
 # Billing System
 
+> 🇺🇸 **For U.S. businesses**
+>
+> This repository presents the European-oriented version of the Billing System.
+>
+> A dedicated **U.S. version is also available**, without Factur-X or European e-invoicing requirements. It provides the same self-hosted billing workflow, with **manual tax management** to accommodate U.S. federal, state, and local tax requirements depending on your business situation.
+>
+> The U.S. version supports both **services and sales of goods** and remains fully self-hosted, with no SaaS dependency.
+>
+> [Discover the U.S. Billing System and available services](https://palks-studio.com/en/invoicing-without-saas)
+
 > ⚠️ This repository presents the project and its technical documentation.  
 > The production version is not publicly distributed.
 
