@@ -9,8 +9,10 @@
 ![License](https://img.shields.io/badge/License-LICENSE.md-lightgreen.svg)
 ![Offline First](https://img.shields.io/badge/Mode-Offline%20First-0095b1?style=flat)
 ![Self Hosted](https://img.shields.io/badge/Hosting-Self%20Hosted-6b7280?style=flat)
-![PHP](https://img.shields.io/badge/PHP-8%2B-777BB4?style=flat&logo=php&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.1%2B-777BB4?style=flat&logo=php&logoColor=white)
 [![YouTube](https://img.shields.io/badge/YouTube-@Palks__Studio-FF0000?style=flat&logo=youtube&logoColor=white)](https://www.youtube.com/@Palks_Studio)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-@Palks__Studio-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/palks-studio/)
+[![DEV.to](https://img.shields.io/badge/DEV.to-Technical%20Article-7C3AED?style=flat&logo=devdotto&logoColor=white)](https://dev.to/palks_studio/a-self-hosted-financial-system-for-freelancers-4b27)
 
 <p align="center">
   <a href="https://palks-studio.com">
@@ -28,11 +30,11 @@
 >
 > La version US prend en charge les **prestations de services et les ventes de biens**, sans dépendance SaaS et avec hébergement sur votre propre infrastructure.
 >
-> [Découvrir la version US et les prestations proposées](https://palks-studio.com/en/invoicing-without-saas)
-
+> 👉 [Découvrir la version US et les prestations proposées](https://palks-studio.com/en/invoicing-without-saas)
+>
 > ⚠️ Ce dépôt présente le projet et sa documentation technique.  
 > La version de production n’est pas distribuée publiquement.
-
+>
 > L’installation est réalisée directement sur l’hébergement du client.  
 > Si vous souhaitez utiliser ce système, merci de contacter **Palks Studio**.
 
@@ -42,7 +44,15 @@ Système de facturation complet, autonome et bilingue (FR/EN), installable sur t
 
 ## Présentation générale
 
-Billing System est une suite de quatre outils de facturation reliés entre eux, accessibles depuis une interface unifiée. Il couvre l'intégralité du cycle de vie d'une prestation :  de l'émission du devis jusqu'à l'acquittement de la facture, en passant par la signature électronique et l'archivage structuré.
+Billing System est une suite de cinq outils reliés entre eux, accessibles depuis une interface unifiée : génération de devis, facturation, acquittement, suivi des acomptes et gestion des dépenses.
+
+Il couvre l'intégralité du cycle de vie d'une prestation ou d'une vente, de l'émission du devis jusqu'à l'acquittement de la facture, en passant par la signature électronique et l'archivage structuré.
+
+L'installation et la configuration initiale sont réalisées par Palks Studio directement sur l'infrastructure du client, via une interface de configuration dédiée.
+
+Le système est paramétré selon les caractéristiques de l'entreprise : statut fiscal, régime de TVA, identité de l'émetteur, coordonnées bancaires, numérotation des documents et configuration éventuelle de la Plateforme Agréée.
+
+Les règles métier sont ensuite appliquées automatiquement par le moteur, avec des contrôles de cohérence côté interface et côté serveur.
 
 Le système est conçu pour être déployé directement chez le client, sur un hébergement Apache standard avec PHP 8.x et Composer. Il ne nécessite ni base de données, ni service tiers, ni abonnement.
 
@@ -50,12 +60,16 @@ Curieux de découvrir l'application complète ? La playlist de démonstration es
 
 Le moteur intègre également un système de mise à jour sécurisé permettant de maintenir la conformité réglementaire dans le temps tout en conservant une installation autonome chez le client.
 
+Pour aller plus loin, un article technique présente la conception du Billing System, son architecture auto-hébergée et les choix techniques qui permettent de proposer un système de facturation autonome, sans base de données ni dépendance SaaS.
+
+👉 [A Self-Hosted Financial System for Freelancers](https://dev.to/palks_studio/a-self-hosted-financial-system-for-freelancers-4b27) (DEV.to, en anglais)
+
 ---
 
 ## Fonctionnalités
 
-- Server-side PDF quote generation (mPDF)  
-- Génération automatique de la facture acquittée au moment de la facturation  
+- Génération de devis et de factures PDF côté serveur (mPDF)  
+- Génération simultanée de la facture à régler et de sa version acquittée au format Factur-X, conservée en attente de confirmation du paiement  
 - Signature électronique du devis par le client (canvas tactile/souris)  
 - Auto-remplissage client depuis les archives (SIREN, SIRET, TVA, email, nom)  
 - Archivage structuré par client et par période  
@@ -64,15 +78,13 @@ Le moteur intègre également un système de mise à jour sécurisé permettant 
 - Export mensuel ou annuel des recettes (CSV) depuis l’interface  
 - Export mensuel ou annuel des dépenses (CSV) depuis l’interface  
 - Export mensuel ou annuel des acomptes (CSV) depuis l’interface  
-- Envoi email automatique à chaque étape (devis, facture, acquittement)  
-- Navigation entre les trois modules depuis une barre commune  
+- Envoi automatique des documents par email et/ou transmission vers la Plateforme Agréée selon la configuration de l'installation  
+- Navigation entre les cinq modules depuis une barre commune  
 - Interface bilingue FR/EN avec switch en temps réel  
 - Mode sombre / mode clair persisté  
 - Aucune base de données  
 - Aucune dépendance SaaS  
 - Sécurité minimale : sessions sécurisées, tokens, anti-brute force  
-- Gestion internationale : mentions légales TVA automatiques selon la zone client (FR / UE / hors UE)  
-- TVA forcée à 0 % pour les clients UE et hors UE, avec mention légale adaptée  
 - Validation du format et de la cohérence du numéro de TVA intracommunautaire client (préfixe pays, longueur attendue), appliquée côté interface et côté serveur  
 - 249 pays centralisés dans `countries.php` — code ISO en backend, nom complet en interface  
 - Autocomplétion pays sans accents, affichage en nom complet, transmission en ISO  
@@ -86,8 +98,12 @@ Le moteur intègre également un système de mise à jour sécurisé permettant 
 - Gestion des informations d’assurance professionnelle (assureur, numéro de police et coordonnées)  
 - Gestion multi-utilisateurs avec identifiants et mots de passe individuels  
 - Sessions utilisateur indépendantes avec authentification sécurisée  
-- International VAT handling with automatic legal notices based on client location (France / EU / non-EU), operation type (service or sale of goods), and issuer tax status  
-- Support for services and sales of goods with automatic adaptation of applicable VAT legal notices  
+- Gestion fiscale internationale selon la zone du client (France / UE / hors UE), le statut fiscal de l'émetteur et le type de client (particulier ou professionnel)  
+- Prise en charge des prestations de services, des ventes de biens et des opérations mixtes  
+- Sélection automatique des mentions légales et des catégories de TVA Factur-X (S, E, AE, K, G, O)  
+- Gestion de l'autoliquidation, des livraisons intracommunautaires et des exportations hors UE  
+- Contrôles de cohérence fiscale côté serveur et blocage des combinaisons non prises en charge  
+- Agrégation de la TVA par taux et gestion de l'option de paiement d'après les débits  
 - Enregistrement et suivi des dépenses professionnelles  
 - Gestion des justificatifs (PDF, JPG, PNG)  
 - Historique des dépenses avec filtres mensuels et annuels  
@@ -210,9 +226,9 @@ private/
 │
 └── docs/
     ├── USER_GUIDE_FR.md               → Guide utilisateur (FR)
-    ├── USER_GUIDE_FR.md               → Guide utilisateur (EN)
+    ├── USER_GUIDE.md                  → Guide utilisateur (EN)
     ├── USER_GUIDE_FR.pdf              → Guide utilisateur (FR)
-    ├── USER_GUIDE_FR.pdf              → Guide utilisateur (EN)
+    ├── USER_GUIDE.pdf                 → Guide utilisateur (EN)
     ├── UPDATE_SYSTEM_FR.md            → Documentation du moteur de mise à jour automatique (FR)
     ├── UPDATE_SYSTEM.md               → Documentation du moteur de mise à jour automatique (EN)
     ├── OVERVIEW_FR.md                 → Vue d’ensemble du projet et de son fonctionnement (FR)
@@ -230,10 +246,10 @@ private/
 
 **Fonctionnement :**
 
-1. The user fills in the form: issuer details, client details, operation type (service or sale of goods), invoice lines, bank details, and document settings (currency and PDF language).  
+1. L'utilisateur remplit le formulaire : coordonnées de l'émetteur et du client, type d'opération (prestation de services, vente de biens ou opération mixte), lignes du devis, coordonnées bancaires et paramètres du document (devise et langue du PDF).  
 2. Un aperçu des totaux HT / TVA / TTC est calculé en temps réel.  
 3. À la soumission, une fenêtre de confirmation s'affiche avant génération.  
-4. Le PDF est généré localement et téléchargé. Simultanément, le devis est archivé côté serveur avec un token de signature valable 30 jours.  
+4. Le PDF est généré côté serveur puis téléchargé. Simultanément, le devis est archivé avec un jeton de signature valable 30 jours.  
 5. Un email est envoyé au client avec un lien de consultation et de signature en ligne.
 
 **Détails techniques :**
@@ -246,26 +262,27 @@ private/
 - Sélecteur devise : EUR, USD, GBP, CHF, CAD  
 - Coordonnées bancaires (IBAN/BIC) conditionnelles dans le PDF  
 - Bloc « Bon pour accord » avec image de signature configurable  
-- Footer TVA conditionnel (art. 293B CGI si TVA = 0)  
+- Mentions légales TVA adaptées automatiquement au régime fiscal de l'émetteur et à la nature de l'opération  
+- Prise en charge des prestations de services et des ventes de biens  
 - Pagination PDF automatique  
 - Gestion des clients particuliers et professionnels  
 - Masquage automatique des identifiants d’entreprise pour les particuliers  
-- Informations d’assurance professionnelle optionnelles  
-- Support for both services and sales of goods with automatic VAT legal notice selection
+- Informations d’assurance professionnelle optionnelles
 
 ---
 
 ### 2. Facturation directe
 
-Interface de génération de facture côté serveur via mpdf. Produit simultanément deux PDF à chaque génération : la facture normale et la facture acquittée (pré-générée, en attente de paiement).
+Interface de génération de factures côté serveur via mPDF, associée au moteur Factur-X. Pour les factures standard, le système produit simultanément deux PDF au format Factur-X : la facture à régler et sa version acquittée, pré-générée et conservée en attente de paiement.
 
 **Fonctionnement :**
 
-1. The user fills in the form: client details automatically populated through lookup, operation type (service or sale of goods), client type (individual or business), professional insurance information, selection of the related quote, invoice lines automatically loaded from the selected quote, service date, and any applicable deposit.  
-2. Un aperçu des totaux (HT / TVA / TTC) est calculé en temps réel.  
-3. À la soumission, une fenêtre de confirmation s’affiche avant la génération.  
-4. Le PDF est généré localement puis téléchargé. En parallèle, le devis est archivé côté serveur avec un jeton de signature valide pendant 30 jours.  
-5. Un email est envoyé au client avec un lien pour consulter et signer le devis en ligne.
+1. L'utilisateur remplit le formulaire : coordonnées client, type d'opération, type de client, informations d'assurance professionnelle, devis associé, lignes de facturation, date de prestation et acompte éventuel.  
+2. Un aperçu des totaux HT / TVA / TTC est calculé en temps réel.  
+3. À la soumission, une fenêtre de confirmation s'affiche avant la génération.  
+4. Le serveur valide les données, génère les documents Factur-X et archive les métadonnées associées.  
+5. La facture à régler est téléchargée puis transmise selon la configuration de l'installation : par email au client et/ou vers la Plateforme Agréée.  
+6. La version acquittée est stockée dans un répertoire dédié jusqu'à la confirmation du paiement.
 
 **Détails techniques :**
 
@@ -277,7 +294,11 @@ Interface de génération de facture côté serveur via mpdf. Produit simultané
 - Traitement automatique du logo pour compatibilité PDF  
 - Récupération automatique des informations émetteur depuis les métadonnées existantes  
 - Traçabilité des PDF via empreinte cryptographique (SHA-256)  
-- Envoi des factures par email avec pièce jointe, sans dépendance externe
+- Envoi des factures par email avec pièce jointe, sans dépendance externe  
+- Générateur XML Factur-X et injecteur PDF développés en interne, avec utilisation de la bibliothèque Factur-X d'Akretion  
+- Génération de factures Factur-X au profil EN16931  
+- Prise en charge des factures d'acompte  
+- Gestion des remises globales et des références aux factures d'acompte
 
 ### Suivi des acomptes
 
@@ -332,8 +353,30 @@ Interface de consultation et de gestion des acomptes enregistrés sur les devis.
 **Détails techniques :**
 
 - Lecture seule — aucune écriture sur les données existantes hors clôture  
-- Scan combiné des factures en cours et payées pour déterminer le statut  
-- Compatible PHP 7
+- Scan combiné des factures en cours et payées pour déterminer le statut
+
+---
+
+### 5. Gestion des dépenses
+
+Interface dédiée à l'enregistrement et au suivi des dépenses professionnelles.
+
+**Fonctionnement :**
+
+1. L'utilisateur enregistre une dépense : date, fournisseur, catégorie, numéro de facture, montant et TVA.  
+2. Un justificatif peut être associé à la dépense (PDF, JPG ou PNG).  
+3. La dépense est enregistrée dans le journal annuel des dépenses.  
+4. Les dépenses peuvent être filtrées par mois et par année.  
+5. Le journal des dépenses peut être exporté au format CSV.
+
+**Détails techniques :**
+
+- Journal annuel des dépenses  
+- Stockage et archivage automatique des justificatifs  
+- Export CSV mensuel ou annuel  
+- Interface bilingue FR/EN  
+- Visualisation sécurisée des justificatifs  
+- Compatibilité avec les sessions multi-utilisateurs
 
 ---
 
@@ -372,15 +415,17 @@ Module d’envoi d’emails avec gestion des pièces jointes, utilisé par l’e
 
 #### Transmission Plateforme Agréée
 
-Le moteur intègre un routage des factures compatible avec une transmission vers une Plateforme Agréée (PA).
+Le moteur intègre une logique de routage permettant la transmission des factures et des données de e-reporting vers une Plateforme Agréée (PA).
 
 Le comportement dépend de la configuration de l'installation et du type de client :
 
-- PA désactivée : envoi de la facture au client par email  
-- PA activée + client professionnel (B2B) : transmission vers la PA uniquement  
-- PA activée + client particulier (B2C) : envoi au client par email et transmission vers la PA
+- PA désactivée : envoi de la facture par email lorsque l'adresse du client est renseignée  
+- PA activée + client professionnel (B2B) : transmission vers la PA  
+- PA activée + client particulier (B2C) : envoi de la facture au client par email et transmission des données vers la PA
 
-Le connecteur PA et sa configuration restent indépendants du moteur principal, ce qui permet de mettre à jour les composants du moteur sans remplacer l'intégration PA propre à chaque installation.
+Le connecteur PA est entièrement configurable selon l'API et les fonctionnalités proposées par la plateforme retenue.
+
+La logique de transmission et la configuration de la PA restent indépendantes du moteur principal, ce qui permet de mettre à jour les composants Factur-X sans remplacer l'intégration propre à chaque installation.
 
 ---
 
@@ -420,7 +465,7 @@ Ce mécanisme permet d'assurer la continuité de conformité réglementaire du m
 - Protection des endpoints par contrôle d’accès  
 - Politique de sécurité des réponses HTTP (type, cache, indexation)  
 - Interfaces internes non indexées et non exposées publiquement  
-- Aucune dépendance à des services externes : toutes les données restent sous contrôle  
+- Aucune dépendance SaaS pour le fonctionnement du moteur de facturation : les données restent hébergées sur l'infrastructure du client  
 - Authentification multi-utilisateurs via comptes dédiés  
 - Double validation des données (interface et serveur) sur les champs sensibles, dont le numéro de TVA intracommunautaire
 
@@ -435,6 +480,8 @@ Ce mécanisme permet d'assurer la continuité de conformité réglementaire du m
 | Génération facture | Client            | Facture en pièce jointe                  |
 | Acquittement       | Client            | Facture acquittée en pièce jointe        |
 
+L'envoi des factures par email dépend de la configuration de la Plateforme Agréée et de la présence d'une adresse email client.
+
 Tous les emails sont bilingues FR/EN selon la langue du document.
 
 ---
@@ -443,10 +490,14 @@ Tous les emails sont bilingues FR/EN selon la langue du document.
 
 - PHP 8.1 ou supérieur  
 - Serveur web compatible (Apache recommandé)  
-- Gestion des réécritures d’URL  
+- Gestion des réécritures d'URL  
+- Composer et bibliothèques PHP requises  
+- Python 3 et dépendances nécessaires au moteur Factur-X  
 - Extension GD (traitement des images)  
-- Fonction d’envoi d’emails active côté serveur  
-- Droits d’écriture sur les répertoires de stockage et d’archivage
+- Fonction d'envoi d'emails active côté serveur  
+- Droits d'écriture sur les répertoires de stockage et d'archivage  
+- Connexion au serveur de mise à jour pour la récupération des nouvelles versions du moteur  
+- Accès à l'API de la Plateforme Agréée si cette fonctionnalité est activée
 
 ---
 
@@ -454,17 +505,19 @@ Tous les emails sont bilingues FR/EN selon la langue du document.
 
 Toutes les données sont stockées sous forme de fichiers plats. Aucune base de données n’est requise.
 
-| Type                     | Description                                      | Format              |
-|--------------------------|--------------------------------------------------|---------------------|
-| Devis                    | Archivés avec leurs métadonnées associées        | PDF + métadonnées   |
-| Signatures               | Stockées sous forme d’images                     | PNG                 |
-| Factures                 | Archivées avec leurs métadonnées associées       | PDF + métadonnées   |
-| Factures en attente      | Pré-générées en attente de validation            | PDF                 |
-| Factures acquittées      | Archivées après confirmation de paiement         | PDF                 |
-| Recettes                 | Export structuré des transactions                | CSV                 |
-| Compteurs                | Suivi de la numérotation séquentielle            | Entier              |
-| Logs                     | Journal des activités du système                 | Texte horodaté      |
-| Archives acomptes        | Archivage mensuel des acomptes clôturés          | JSON + CSV          |
+| Type                           | Description                                                  | Format                    |
+|--------------------------------|--------------------------------------------------------------|---------------------------|
+| Devis                          | Archivés avec leurs métadonnées associées                    | PDF + métadonnées         |
+| Signatures                     | Stockées sous forme d’images                                 | PNG                       |
+| Factures                       | Archivage des factures à régler et des métadonnées associées | PDF Factur-X + XML + JSON |
+| Factures acquittées en attente | Versions pré-générées en attente de confirmation du paiement | PDF Factur-X              |
+| Factures acquittées            | Archivage après confirmation du paiement                     | PDF Factur-X              |
+| Recettes                       | Export structuré des transactions                            | CSV                       |
+| Compteurs                      | Suivi de la numérotation séquentielle                        | Entier                    |
+| Logs                           | Journal des activités du système                             | Texte horodaté            |
+| Archives acomptes              | Archivage mensuel des acomptes clôturés                      | JSON + CSV                |
+| Dépenses                       | Journal annuel des dépenses professionnelles                 | CSV                       |
+| Justificatifs                  | Documents associés aux dépenses                              | PDF, JPG, PNG             |
 
 ---
 
