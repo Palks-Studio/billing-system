@@ -12,6 +12,7 @@
 ![PHP](https://img.shields.io/badge/PHP-8%2B-777BB4?style=flat&logo=php&logoColor=white)
 [![YouTube](https://img.shields.io/badge/YouTube-@Palks__Studio-FF0000?style=flat&logo=youtube&logoColor=white)](https://www.youtube.com/@Palks_Studio)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-@Palks__Studio-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/palks-studio/)
+[![DEV.to](https://img.shields.io/badge/DEV.to-Technical%20Article-7C3AED?style=flat&logo=devdotto&logoColor=white)](https://dev.to/palks_studio/a-self-hosted-financial-system-for-freelancers-4b27)
 
 <p align="center">
   <a href="https://palks-studio.com">
@@ -24,13 +25,17 @@
 
 > 🇺🇸 **For U.S. businesses**
 >
-> This repository presents the European-oriented version of the Billing System.
+> This repository presents the European version of Billing System.
 >
-> A dedicated **U.S. version is also available**, without Factur-X or European e-invoicing requirements. It provides the same self-hosted billing workflow, with **manual tax management** to accommodate U.S. federal, state, and local tax requirements depending on your business situation.
+> A dedicated **U.S. version is also available**, without Factur-X or European e-invoicing requirements. It provides the same self-hosted billing workflow, supporting both services and sales of goods.
 >
-> The U.S. version supports both **services and sales of goods** and remains fully self-hosted, with no SaaS dependency.
+> Installation and initial configuration are handled by Palks Studio directly on the client's hosting infrastructure, with no database or SaaS dependency.
 >
-> [Discover the U.S. Billing System and available services](https://palks-studio.com/en/invoicing-without-saas)
+> The U.S. version includes **manual tax management**, allowing businesses to apply the tax rates relevant to their activities and jurisdiction.
+>
+> **Custom tax configuration is available as an additional service.** Based on the applicable tax requirements and information provided by the client, Palks Studio can implement predefined tax rules, configure specific rates, and lock the relevant settings to automate the billing workflow according to the business's needs.
+>
+> 👉 [Discover the U.S. Billing System and available services](https://palks-studio.com/en/invoicing-without-saas)
 
 > ⚠️ This repository presents the project and its technical documentation.  
 > The production version is not publicly distributed.
@@ -52,53 +57,52 @@ Curious to see the full application? The complete demo playlist is available her
 
 The engine also includes a secure update mechanism that allows regulatory compliance to be maintained over time while preserving a fully autonomous client-hosted installation.
 
+For a closer look at the technical architecture, this article explores the design of Billing System and the engineering choices behind a self-hosted financial system with no database or SaaS dependency.
+
+👉 [A Self-Hosted Financial System for Freelancers](https://dev.to/palks_studio/a-self-hosted-financial-system-for-freelancers-4b27) (DEV.to)
+
 ---
 
 ## Features
 
-- Interface de création de devis et factures avec génération PDF côté serveur via mPDF  
-- Automatic pre-generation of the paid invoice at billing time  
+- Server-side PDF quote and invoice generation (mPDF)  
+- Simultaneous generation of the invoice due for payment and its paid version, stored until payment confirmation  
 - Electronic quote signing by the client (touch/mouse canvas)  
-- Client auto-fill from archives (SIREN, SIRET, VAT, email, name)  
+- Client auto-fill from existing archives  
 - Structured archiving by client and period  
-- Secure sequential numbering (file lock)  
+- Secure sequential numbering (file locking)  
 - Monthly invoice export (ZIP archive) from the interface  
 - Monthly or yearly revenue export (CSV) from the interface  
 - Monthly or yearly expense export (CSV) from the interface  
 - Monthly or yearly deposit export (CSV) from the interface  
-- Automatic email notifications at each stage (quote, invoice, settlement)  
-- Cross-module navigation bar  
-- Bilingual FR/EN interface with real-time language switch  
-- Dark mode / light mode with persistence  
+- Automatic document delivery by email when a client email address is provided  
+- Navigation between all five modules through a shared navigation bar  
+- Bilingual FR/EN interface with real-time language switching  
+- Persistent dark mode / light mode  
 - No database  
 - No SaaS dependency  
-- Basic security: secure sessions, tokens, brute-force protection  
-- International support: automatic VAT legal notice based on client zone (FR / EU / non-EU)  
-- VAT forced to 0% for EU and non-EU clients, with appropriate legal notice  
-- 249 countries centralised in `countries.php` — ISO code in backend, full name in UI  
-- Intra-EU client VAT number format and consistency validation (country prefix, expected length), enforced both on the interface and on the server  
-- Country autocomplete without accents, displayed as full name, transmitted as ISO  
-- VAT column hidden in documents when no VAT applies  
-- `vat_zone` column in CSV revenue journal (values: `fr`, `eu`, `world`)  
-- Deposit tracking and cumulative recording per quote  
+- Secure sessions, access tokens and brute-force protection  
+- 249 countries centralized in `countries.php`, with ISO codes in the backend and full country names in the interface  
+- Accent-insensitive country autocomplete  
+- Manual tax management based on applicable tax rates  
+- Tax aggregation by rate  
+- Tax column hidden in documents when no tax applies  
+- Custom tax rules and locked tax settings available as an additional service, based on the client's specific tax requirements  
+- Support for services, sales of goods and mixed transactions  
+- Deposit recording and cumulative tracking per quote  
 - Secure PDF invoice download from the payment interface  
-- Deposit tracking by status (not invoiced, awaiting payment, paid) with filters and pagination  
-- Monthly close for paid deposits with CSV export and JSON archive  
-- Support for individual and business clients with automatic adaptation of company identification fields  
-- Professional insurance information management (insurer, policy number and insurer contact details)  
+- Deposit tracking by status (not invoiced, awaiting payment, paid), with filters and pagination  
+- Monthly closing of paid deposits with CSV export and JSON archiving  
+- Support for individual and business clients with automatic adaptation of business identification fields  
+- Professional insurance information management (insurer, policy number and contact details)  
 - Multi-user authentication with individual usernames and passwords  
-- Independent user sessions with secure login management  
-- International VAT handling with automatic legal notices based on client location (France / EU / non-EU), operation type (service or sale of goods), and issuer tax status  
-- Support for services and sales of goods with automatic adaptation of applicable VAT legal notices  
+- Independent user sessions with secure authentication  
+- Global discount management  
 - Business expense recording and tracking  
-- Expense attachments (PDF, JPG, PNG)  
+- Expense supporting documents (PDF, JPG, PNG)  
 - Expense history with monthly and yearly filters  
-- Automatic Factur-X engine update system with integrated notifications across all interfaces  
-- Daily availability checks for new versions from the client installation  
-- Regulatory update installation after user approval  
-- Cryptographic verification of updates before installation  
-- Automatic backup before replacing engine components  
-- Targeted updates limited to files required for regulatory compliance
+- Standard PDF document generation without Factur-X or European e-invoicing requirements  
+- Installation and initial configuration performed by Palks Studio directly on the client's hosting infrastructure
 
 ---
 
@@ -231,85 +235,94 @@ private/
 
 ### 1. Quote generator
 
-**How it works:**  
+**How it works:**
 
-1. The user fills in the form: issuer details, client details, operation type (service or sale of goods), invoice lines, bank details, and document settings (currency and PDF language).  
-2. A live preview of totals (excl. VAT / VAT / incl. VAT) is calculated in real time.  
+1. The user fills in the form: business details, client details, operation type (services, sales of goods or mixed transactions), quote line items, applicable taxes, bank details, and document settings.  
+2. A live preview of totals (subtotal, taxes and total) is calculated in real time.  
 3. On submission, a confirmation dialog appears before generation.  
-4. The PDF is generated locally and downloaded. At the same time, the quote is archived server-side with a signature token valid for 30 days.  
-5. An email is sent to the client with a link to review and sign the quote online.
+4. The PDF is generated server-side using mPDF, archived with its associated metadata, and returned to the browser for download. A secure signature token is generated with a configurable validity period (30 days by default).  
+5. An email is sent to the client, when an email address is provided, with a link to review and sign the quote online.
 
-**Technical details:**  
+**Technical details:**
 
-- Automatic numbering based on the client’s existing records  
-- Client auto-fill using SIREN, SIRET, VAT number, email, or name  
-- Client-side validation of SIREN/SIRET (Luhn algorithm)  
-- Automatic SIREN extraction from SIRET  
+- Automatic numbering based on the client's existing records  
+- Client auto-fill from existing archives  
+- Manual tax management based on the applicable tax rates  
+- Custom tax rules and locked tax settings available as an additional service  
 - Real-time language switch (FR/EN) without page reload  
 - Currency selector: EUR, USD, GBP, CHF, CAD  
-- Conditional display of bank details (IBAN/BIC) in the PDF  
-- “Approved and agreed” section with configurable signature image  
-- Conditional VAT footer (e.g. VAT exemption under art. 293B CGI when VAT = 0)  
+- Conditional display of banking information in the PDF  
+- "Approved and agreed" section with configurable signature image  
+- Support for services, sales of goods and mixed transactions  
 - Automatic PDF pagination  
 - Support for individual and business clients  
-- Automatic hiding of company identification fields for individual clients  
+- Automatic adaptation of business identification fields  
 - Optional professional insurance information  
-- Support for both services and sales of goods with automatic VAT legal notice selection
+- Global discount management  
+- Deposit request as a percentage of the quote total  
+- Optional delivery address for sales of goods  
+- PDF traceability via cryptographic hash (SHA-256)
 
 ---
 
 ### 2. Direct invoicing
 
-Server-side invoice generation interface. For each operation, two PDFs are produced: the standard invoice and a pre-generated “paid” version (pending payment validation).
+Server-side invoice generation interface using mPDF. For standard invoices, the system simultaneously produces two PDF documents: the invoice due for payment and its pre-generated paid version, stored until payment confirmation.
 
-**How it works:**  
+**How it works:**
 
-1. The user fills in the form: client details automatically populated through lookup, operation type (service or sale of goods), client type (individual or business), professional insurance information, selection of the related quote, invoice lines automatically loaded from the selected quote, service date, and any applicable deposit.  
-2. A live preview of totals (excl. VAT / VAT / incl. VAT) is calculated in real time.  
+1. The user fills in the form: client details, operation type, client type, professional insurance information, related quote, invoice line items, applicable taxes, service date, and any applicable deposit.  
+2. A live preview of totals (subtotal, taxes and total) is calculated in real time.  
 3. On submission, a confirmation dialog appears before generation.  
-4. The invoice PDF is generated and downloaded. At the same time, the documents are archived server-side for tracking and payment validation.  
-5. An email is sent to the client with the invoice attached.
+4. The server validates the data, generates the PDF documents, and archives the associated metadata.  
+5. The invoice due for payment is downloaded and sent to the client by email when an email address is provided.  
+6. The pre-generated paid version is stored in a dedicated directory until payment confirmation.
 
 **Technical details:**
 
 - Annual invoice numbering with collision protection  
 - Protection against duplicate invoicing from the same quote reference  
 - Full input validation with bilingual error handling (FR/EN)  
-- Accurate financial calculations with float precision handling  
-- VAT aggregation per rate  
+- Accurate financial calculations with floating-point precision handling  
+- Manual tax rate selection and tax aggregation by rate  
+- Custom tax rules and predefined tax settings available as an additional service  
 - Automatic logo processing for PDF compatibility  
-- Automatic retrieval of issuer information from existing metadata  
+- Automatic retrieval of business information from existing metadata  
 - PDF traceability via cryptographic hash (SHA-256)  
-- Email delivery with PDF attachment, without external dependencies
+- Email delivery with PDF attachments through the internal mailer  
+- Support for deposit invoices  
+- Global discount management and references to deposit invoices  
+- Standard PDF invoice generation without Factur-X or European e-invoicing requirements
 
-### Deposit tracking
+#### Deposit tracking
 
-The invoicing interface allows recording deposits received against a quote.  
-Amounts accumulate with each entry. The total is automatically pre-filled  
-when the form is loaded via the client lookup.
+The invoicing interface allows users to record deposits received against a quote.
+
+Amounts accumulate with each entry. The total is automatically pre-filled when the form is loaded through the client lookup.
 
 ---
 
 ### 3. Payment validation and tracking
 
-Interface for tracking outstanding invoices and validating payments. Allows users to identify unpaid invoices, mark them as paid, and monitor revenue.
+Interface for tracking outstanding invoices and confirming payments. Allows users to identify unpaid invoices, mark them as paid, and monitor revenue.
 
-**How it works:**  
+**How it works:**
 
 1. The module automatically detects invoices awaiting payment.  
-2. The user selects a payment date and clicks “Mark as paid”.  
-3. The system archives the invoice as paid, updates the metadata, records the transaction in the revenue log, and sends the invoice to the client by email.  
+2. The user selects a payment date and clicks "Mark as paid".  
+3. The system moves the pre-generated paid invoice to the paid invoice archive, updates the associated metadata, records the transaction in the revenue journal, and sends the paid invoice to the client by email when an email address is available.  
 4. A table displaying the latest revenue entries of the year is shown at the bottom of the page.
 
-**Technical details:**  
+**Technical details:**
 
-- Automatic detection of invoices to process  
+- Automatic detection of invoices awaiting payment  
 - Filtering of invoices already marked as paid  
-- Prevention of duplicate entries in the revenue log  
-- Safe write operations with file locking  
-- Protection against form resubmission  
-- Pending invoices counter indicator  
-- CSV export of revenue
+- Prevention of duplicate entries in the revenue journal  
+- Secure write operations with file locking  
+- Protection against duplicate form submissions  
+- Pending invoice counter  
+- Secure PDF invoice download  
+- Monthly or yearly revenue export in CSV format
 
 ---
 
@@ -322,21 +335,47 @@ Interface for viewing and managing deposits recorded on quotes.
 1. The module scans the contract archives and lists all quotes with a recorded deposit.  
 2. Each entry displays a dynamically calculated status: not invoiced, awaiting payment, or paid.  
 3. Entries can be filtered by status and are paginated in batches of 20.  
-4. A monthly close allows archiving deposits whose invoice has been paid.
+4. A monthly close allows users to archive deposits whose invoices have been paid.
 
 **Monthly close:**
 
 - Select the year and month to close  
-- CSV automatically downloaded  
-- JSON archive stored in the dedicated directory  
+- CSV export automatically downloaded  
+- JSON archive stored in a dedicated directory  
 - `archived: true` flag written to the contract metadata  
-- Archived entries disappear from the active view
+- Archived entries removed from the active view
 
 **Technical details:**
 
-- Read-only — no writes to existing data outside of the close operation  
-- Combined scan of pending and paid invoices to determine status  
-- PHP 7 compatible
+- Read-only interface, with no changes to existing data outside the closing operation  
+- Combined scan of pending and paid invoices to determine deposit status  
+- Monthly archiving with structured CSV and JSON records
+
+---
+
+### 5. Business expense tracking
+
+Interface for recording, tracking and archiving business expenses, including associated supporting documents.
+
+**How it works:**
+
+1. The user records an expense by entering the date, supplier, category, invoice number, amount and applicable taxes.  
+2. A supporting document can be attached to the expense (PDF, JPG or PNG).  
+3. The expense is recorded in the annual expense journal and archived with its associated document.  
+4. The user can view expense history and filter records by month or year.  
+5. Expense records can be exported in CSV format directly from the interface.
+
+**Technical details:**
+
+- Structured annual expense journal  
+- Monthly and yearly filters  
+- Expense categorization  
+- Manual recording of applicable taxes  
+- Supporting document storage (PDF, JPG, PNG)  
+- Secure access to expense attachments  
+- Automatic archiving by year  
+- Monthly or yearly CSV export  
+- Multi-user support
 
 ---
 
@@ -353,11 +392,11 @@ Public page accessible via a secure tokenized link. Allows the client to view th
 - Metadata update with signature timestamp and traceability  
 - Confirmation emails sent to both client and issuer (FR/EN)  
 - Protection against duplicate signing  
-- Link expiration after 30 days
+- Configurable link expiration (30 days by default)
 
 #### Client auto-fill
 
-JSON endpoint used during form input. Searches existing records based on SIREN, SIRET, VAT number, email, name, or quote number.
+JSON endpoint used during form input. Searches existing records based on client identification details, email, name or quote number.
 
 - Returns complete client details, client type, language, currency and associated data  
 - Allows automatic pre-fill of invoice data from previous quotes  
@@ -365,48 +404,53 @@ JSON endpoint used during form input. Searches existing records based on SIREN, 
 
 #### Secure PDF access
 
-Token-based access layer for serving PDF files without exposing their physical location.
+Token-based access layer for serving PDF files without exposing their physical location on the server.
 
 #### Internal mailer
 
-Email sending module with attachment support, used across all features. No external SMTP service required.
+Internal email delivery module with attachment support, used across all features. No external SMTP service is required.
 
-#### Approved Platform Transmission
+- Automatic delivery of quotes, invoices and paid invoices  
+- Electronic signature links and confirmation emails  
+- Email content adapted to the document language (FR/EN)  
+- Document delivery when a valid client email address is provided
 
-The engine includes invoice routing compatible with transmission to an Approved Platform (PA).
+#### Installation and tax configuration
 
-The routing behavior depends on the installation configuration and the client type:
+Each installation is configured by Palks Studio directly on the client's hosting infrastructure through a dedicated configuration interface.
 
-- PA disabled: the invoice is sent to the client by email  
-- PA enabled + professional client (B2B): transmission to the PA only  
-- PA enabled + individual client (B2C): the invoice is sent to the client by email and transmitted to the PA
+The initial configuration includes business identification details, banking information, document numbering, branding and billing preferences.
 
-The PA connector and its configuration remain independent from the main engine, allowing engine components to be updated without replacing the PA integration specific to each installation.
+The U.S. version provides manual tax management, allowing businesses to select the applicable tax rates according to their activities and jurisdiction.
+
+Custom tax rules, predefined rates and locked tax settings can be implemented as an additional service, based on the applicable tax requirements and information provided by the client.
+
+The system remains fully self-hosted, with no database or SaaS dependency.
 
 ---
 
 ## Engine Update System
 
-The system includes an automatic update mechanism designed to keep the Factur-X engine compliant with regulatory changes over time.
+The system includes a secure update mechanism designed to maintain and improve the billing engine over time.
 
 Each client installation periodically checks the Palks Studio update server for the availability of a new version.
 
 When a new version is available:
 
-- a notification appears across all system interfaces  
-- the user can view the update information  
-- the user can start the installation directly from the notification
+- A notification appears across all system interfaces  
+- The user can view the update information  
+- The user can start the installation directly from the notification
 
 The update process:
 
-- downloads only the required engine components  
-- verifies the cryptographic signature of the release  
-- creates a backup before modification  
-- replaces only the necessary files  
-- keeps client data and local configurations unchanged  
-- updates the installed version
+- Downloads only the required engine components  
+- Verifies the cryptographic signature of the release  
+- Creates a backup before modification  
+- Replaces only the necessary files  
+- Keeps client data and local configurations unchanged  
+- Updates the installed version
 
-This mechanism ensures continuous regulatory compliance of the engine without requiring technical intervention on the client server.
+This mechanism allows the billing engine to receive technical improvements and maintenance updates while preserving the autonomy of each client-hosted installation.
 
 ---
 
@@ -415,57 +459,70 @@ This mechanism ensures continuous regulatory compliance of the engine without re
 - Secure session management (protected cookies, access isolation)  
 - Protection against brute-force attempts  
 - Session identifier regeneration after authentication  
-- Use of secure tokens for accessing sensitive resources  
+- Secure tokens for accessing sensitive resources  
 - Strict validation of inputs and identifiers  
 - Action traceability via cryptographic hashing  
 - Endpoint protection through access control mechanisms  
 - HTTP response security policies (content type, caching, indexing)  
-- Internal interfaces are not indexed and not publicly exposed  
-- No external dependencies: all data remains under full control  
+- Internal interfaces protected by authentication and excluded from search engine indexing  
+- No SaaS dependency, with client data remaining under full control  
 - Multi-user authentication via dedicated user accounts  
-- Double validation of sensitive data (interface and server), including the intra-EU VAT number
+- Double validation of sensitive data on both the interface and the server  
+- Installation-specific configuration managed by Palks Studio
 
 ---
 
 ## Automatic Emails
 
-| Event              | Recipient(s)    | Content                            |
-|--------------------|-----------------|------------------------------------|
-| Quote generation   | Client          | Signature link + PDF download link |
-| Quote signed       | Client + Issuer | Signature confirmation + PDF link  |
-| Invoice generation | Client          | Invoice as attachment              |
-| Settlement         | Client          | Paid invoice as attachment         |
+| Event                | Recipient(s)    | Content                            |
+|----------------------|-----------------|------------------------------------|
+| Quote generation     | Client          | Signature link + PDF download link |
+| Quote signed         | Client + Issuer | Signature confirmation + PDF link  |
+| Invoice generation   | Client          | Invoice as PDF attachment          |
+| Payment confirmation | Client          | Paid invoice as PDF attachment     |
 
 All emails are bilingual FR/EN based on the document language.
 
+Automatic email delivery requires a valid recipient email address and an enabled email configuration.
+
 ---
 
-## Technical requirements
+## Technical Requirements
 
 - PHP 8.1 or higher  
 - Compatible web server (Apache recommended)  
 - URL rewriting support  
+- Composer for PHP dependencies  
 - GD extension (image processing)  
 - Email sending capability enabled on the server  
-- Write permissions on storage and archive directories
+- Write permissions on storage and archive directories  
+- Internet access for checking and downloading engine updates
+
+Installation and initial configuration are performed by Palks Studio directly on the client's hosting infrastructure.
+
+No database, SaaS subscription or external invoicing platform is required.
 
 ---
 
-## Data storage
+## Data Storage
 
 All data is stored using flat files. No database is required.
 
-| Type                     | Description                                   | Format              |
-|--------------------------|-----------------------------------------------|---------------------|
-| Quotes                   | Archived with associated metadata             | PDF + metadata      |
-| Signatures               | Stored as image files                         | PNG                 |
-| Invoices                 | Archived with associated metadata             | PDF + metadata      |
-| Pending paid invoices    | Pre-generated and awaiting validation         | PDF                 |
-| Validated paid invoices  | Archived after payment confirmation           | PDF                 |
-| Revenue records          | Structured export of transactions             | CSV                 |
-| Counters                 | Sequential numbering tracking                 | Integer             |
-| Logs                     | System activity tracking                      | Timestamped text    |
-| Deposit archives         | Monthly archive of closed deposits            | JSON + CSV          |
+| Type                    | Description                                                | Format           |
+|-------------------------|------------------------------------------------------------|------------------|
+| Quotes                  | Archived with associated metadata                          | PDF + JSON       |
+| Signatures              | Stored as image files                                      | PNG              |
+| Invoices                | Archived invoices due for payment with associated metadata | PDF + JSON       |
+| Pending paid invoices   | Pre-generated paid versions awaiting payment confirmation  | PDF              |
+| Validated paid invoices | Archived after payment confirmation                        | PDF              |
+| Revenue records         | Structured transaction journal                             | CSV              |
+| Expense records         | Structured business expense journal                        | CSV              |
+| Expense attachments     | Supporting documents associated with expenses              | PDF, JPG, PNG    |
+| Counters                | Sequential document numbering                              | Integer          |
+| Logs                    | System activity tracking                                   | Timestamped text |
+| Deposit archives        | Monthly archive of closed deposits                         | JSON + CSV       |
+
+All business data, documents and archives remain stored on the client's own hosting infrastructure.
 
 ---
 
