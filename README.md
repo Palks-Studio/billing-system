@@ -36,10 +36,10 @@
 > **Custom tax configuration is available as an additional service.** Based on the applicable tax requirements and information provided by the client, Palks Studio can implement predefined tax rules, configure specific rates, and lock the relevant settings to automate the billing workflow according to the business's needs.
 >
 > 👉 [Discover the U.S. Billing System and available services](https://palks-studio.com/en/invoicing-without-saas)
-
+>
 > ⚠️ This repository presents the project and its technical documentation.  
 > The production version is not publicly distributed.
-
+>
 > Installation is performed directly on the client's hosting infrastructure.  
 > If you are interested in using this system, please contact **Palks Studio**.
 
